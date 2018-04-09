@@ -28,12 +28,7 @@ jwt = JWTManager(app)
 
 db = Orator(app)
 
-# db = Database()
-#
-# db.bind(provider=cfg.DB_DRIVER, host=cfg.DB_HOST, user=cfg.DB_USERNAME, passwd=cfg.DB_PASSWORD, db=cfg.DB_NAME)
-# db.generate_mapping(create_tables = True)
-
 # REGISTERED Api-------------------------------------------
-from api.User import UserView
 
-UserView.register(app)
+from api import *
+
