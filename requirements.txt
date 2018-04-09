@@ -13,8 +13,8 @@ click==6.7
 dominate==2.3.1
 Faker==0.7.18
 Flask==0.12.2
+flask-allows==0.4
 Flask-Bcrypt==0.7.1
-Flask-Bootstrap==3.3.7.1
 Flask-Classful==0.14.1
 Flask-Cors==3.0.3
 Flask-JWT-Extended==3.7.2
@@ -23,7 +23,6 @@ flask-marshmallow==0.8.0
 flask-orator==0.2.0
 flask-pony==3.0.1
 flask-ponywhoosh==1.0.9
-Flask-RESTful==0.3.6
 Flask-Script==2.0.6
 Flask-WTF==0.14.2
 funcy==1.10.1

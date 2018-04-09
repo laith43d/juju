@@ -30,8 +30,8 @@ DB_DRIVERS = {
     'postgres': 'postgres',
     'sqlite'  : 'sqlite'
 }
-DB_DEFAULT_DRIVER = DB_DRIVERS['mysql']
-DB_DRIVER = DB_DRIVERS['mysql']
+DB_DEFAULT_DRIVER = DB_DRIVERS['postgres']
+DB_DRIVER = DB_DRIVERS['postgres']
 DB_NAME = 'juju'
 DB_HOST = 'localhost'
 DB_READ_HOST_NAME = 'localhost'
