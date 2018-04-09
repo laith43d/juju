@@ -6,6 +6,10 @@ import click
 
 @click.group()
 def cli():
+    """
+    DB operations.
+    :return:
+    """
     pass
 
 

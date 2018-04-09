@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-    flask_apputils.validators
-    ~~~~~~~~~~~~~~~~~~~~~~~~~
-"""
 
 import re
 
@@ -29,7 +24,7 @@ def length(value, min=1, max=None):
 
     def wrapper(message=None):
         if value is not None:
-            assert isinstance(value, basestring), "Invalid value type"
+            assert isinstance(value, str), "Invalid value type"
             size = len(str(value))
             if min is not None and size < min:
                 message = message or "Must be greater than %(min)s characters"
@@ -67,7 +62,7 @@ def none_of(value, options):
 
 def required(value):
     def wrapper(message='Required'):
-        if not value or isinstance(value, basestring) and not value.strip():
+        if not value or isinstance(value, str) and not value.strip():
             raise ValueError(message)
         return value
 

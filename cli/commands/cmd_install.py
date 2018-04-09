@@ -6,10 +6,10 @@ import click
 
 @click.command()
 def cli():
-    '''
+    """
     Install project requirements.
     :return: None
-    '''
+    """
 
     # call(['python3', '-m', 'venv', 'venv'])
     # sleep(5)

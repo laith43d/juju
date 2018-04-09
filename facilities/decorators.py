@@ -13,6 +13,7 @@ __all__ = (
 )
 
 
+
 def after_this_request(f):
     """Decorator for functions to run after request has been processed"""
     from flask import g

@@ -22,6 +22,7 @@ JWT_SECRET_KEY = '4K5UA6+BMeyNPgYxhjFU03dYA1NlDGrf3wRr8uOcIHU='
 
 BASE_DIRECTORY = os.getcwd()
 API_PREFIX = ''
+LOG_DIR = os.path.join(BASE_DIRECTORY, 'logs')
 
 # DB STATIC CONFIG-----------------------------------------
 

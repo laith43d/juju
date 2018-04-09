@@ -6,6 +6,10 @@ import click
 
 @click.group()
 def cli():
+    """
+    Api operations.
+    :return:
+    """
     pass
 
 
