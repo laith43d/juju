@@ -34,7 +34,8 @@ handler.setLevel(logging.DEBUG)
 handler.setFormatter(formatter)
 app.logger.addHandler(handler)
 
-# logger shortcut, example: Log.info('your message'), that would automatically be logged in the log file.
+# logger shortcut, example: Log.info('your message'), that would automatically be logged in the log file
+# specified above.
 Log = app.logger
 
 # DB INIT -------------------------------------------------
