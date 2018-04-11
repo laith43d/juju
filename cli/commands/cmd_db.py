@@ -25,6 +25,7 @@ def make_migration(migration_name: str, table, create, model, api):
     :param migration_name: each migration should assigned a unique name.\n
     :param table: database table.\n
     :param create: if you want to create a db table, set this option.\n
+    :param model: would you like to create the associative model?\n
     :return: None
     """
     if api:
@@ -111,12 +112,17 @@ def db_seed(seed_name):
 
 @cli.command(name = "make:model")
 @click.argument('model_name', required = True)
-def make_model(model_name: str):
+@click.option('--with-migration', is_flag = True)
+def make_model(model_name: str, with_migration):
     """
     Create model.\n
-    :param model_name: model name in singular form.\n 
+    :param model_name: model name in singular form.\n
+    :param with_migration: would you like to add migration?\n
     :return: None
     """
+    if with_migration:
+        call(['python', 'db.py', 'make:migration', model_name,
+              '-p', 'databases/migrations', '--table', model_name, '--create'])
 
     if not os.path.isfile(f'databases/models/{model_name.capitalize()}.py'):
 
