@@ -3,13 +3,18 @@ import click
 from config.settings import app
 
 
-@click.command()
+@click.group()
 def cli():
     """
     List all of the available routes.
 
     :return: str
     """
+    pass
+
+
+@cli.command(name = 'list')
+def list_():
     output = {}
 
     for rule in app.url_map.iter_rules():
