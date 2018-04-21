@@ -42,3 +42,4 @@ If you discover a security vulnerability within Juju, please don't hesitate to c
 ## License
 
 The Juju framework is an open-source software licensed under [MIT license](https://opensource.org/licenses/MIT).
+
