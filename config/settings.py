@@ -3,11 +3,13 @@ from logging.handlers import RotatingFileHandler
 from flask import Flask, logging
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
-from flask_jwt_extended import JWTManager
+# from flask_jwt_extended import JWTManager
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_marshmallow import Marshmallow
-from flask_orator import Orator
+from flask_praetorian import Praetorian
+from flask_sqlalchemy import SQLAlchemy
+
 from config.static_config import LOG_DIR
 
 # APP INITIALIZATION --------------------------------------
@@ -25,11 +27,45 @@ limit = Limiter(
     key_func = get_remote_address,
     default_limits = ["200 per day", "50 per hour"]
 )
-jwt = JWTManager(app)
+# jwt = JWTManager(app)
+
+# DB INIT -------------------------------------------------
+
+db = SQLAlchemy(app)
+
+# JWT -----------------------------------------------------
+
+app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
+app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
+
+guard = Praetorian()
+# The User class argument supplied during initialization
+# represents the class that should be used to check for
+# authorization for decorated routes.
+# The class itself may be implemented in any way that you see fit.
+# It must, however, satisfy the following requirements:
+#
+# Provide a lookup class method that:
+#   should take a single argument of the name of the user
+#   should return an instance of the user_class or None
+# Provide an identify class method
+#   should take a single argument of the unique id of the user
+#   should return an instance of the user_class or None
+# Provide a rolenames instance attribute
+#   should return a list of string roles assigned to the user
+# Provide a password instance attribute
+#   should return the hashed password assigned to the user
+# Provide an identity instance attribute
+#   should return the unique id of the user
+
+# Uncomment the following line after creating and importing the `User` class
+
+from models import User
+guard.init_app(app, User)
 
 formatter = logging.Formatter(
-        "[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
-handler = RotatingFileHandler(LOG_DIR + '/app.log', maxBytes=1000000, backupCount=5)
+    "[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
+handler = RotatingFileHandler(LOG_DIR + '/app.log', maxBytes = 1000000, backupCount = 5)
 handler.setLevel(logging.DEBUG)
 handler.setFormatter(formatter)
 app.logger.addHandler(handler)
@@ -38,11 +74,7 @@ app.logger.addHandler(handler)
 # specified above.
 Log = app.logger
 
-# DB INIT -------------------------------------------------
-
-db = Orator(app)
-
 # REGISTERED Api-------------------------------------------
 
 from api import *
-
+from models import *

@@ -25,7 +25,7 @@ class Context(object):
 
 
 pass_context = click.make_pass_decorator(Context, ensure = True)
-cmd_folder = os.path.join(BASE_DIRECTORY + '/cli','commands')
+cmd_folder = os.path.join(BASE_DIRECTORY + '/cli', 'commands')
 
 
 class CLI(click.MultiCommand):
