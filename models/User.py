@@ -36,7 +36,6 @@ class User(db.Model):
         if not self.is_active:
             raise Exception("user has been disabled")
 
-
 # Seed DB -------------------------------------------------
 
 # Add users for the example
