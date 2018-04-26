@@ -12,12 +12,12 @@ from flask_sqlalchemy import SQLAlchemy
 
 from config.static_config import LOG_DIR
 
-# APP INITIALIZATION --------------------------------------
+# APP Initialization --------------------------------------
 
 app = Flask(__name__)
 app.config.from_object('config.static_config')
 
-# MODULES INITIALIZATION ----------------------------------
+# Modules Initialization ----------------------------------
 
 bcrypt = Bcrypt(app)
 CORS(app)
@@ -29,11 +29,11 @@ limit = Limiter(
 )
 # jwt = JWTManager(app)
 
-# DB INIT -------------------------------------------------
+# DB Init -------------------------------------------------
 
 db = SQLAlchemy(app)
 
-# JWT -----------------------------------------------------
+# Jwt -----------------------------------------------------
 
 app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
 app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
@@ -63,6 +63,8 @@ guard = Praetorian()
 from models import User
 guard.init_app(app, User)
 
+# Logging -------------------------------------------------
+
 formatter = logging.Formatter(
     "[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
 handler = RotatingFileHandler(LOG_DIR + '/app.log', maxBytes = 1000000, backupCount = 5)
@@ -74,7 +76,7 @@ app.logger.addHandler(handler)
 # specified above.
 Log = app.logger
 
-# REGISTERED Api-------------------------------------------
+# Registered Api & Models ---------------------------------
 
 from api import *
 from models import *

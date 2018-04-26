@@ -1,14 +1,16 @@
+from sqlalchemy import Boolean, Column, Integer, String, Text
+
 from config.settings import db
 
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    username = db.Column(db.String(64), index = True, unique = True, nullable = False)
-    email = db.Column(db.String(120), index = True, unique = True)
-    password = db.Column(db.String(128))
-    password_again = db.Column(db.String(128))
-    roles = db.Column(db.Text)
-    is_active = db.Column(db.Boolean, default = True, server_default = 'true')
+    id: Column = Column(Integer, primary_key = True)
+    username: Column = Column(String(64), index = True, unique = True, nullable = False)
+    email: Column = Column(String(120), index = True, unique = True)
+    password: Column = Column(String(128))
+    password_again: Column = Column(String(128))
+    roles: Column = Column(Text)
+    is_active: Column = Column(Boolean, default = True, server_default = 'true')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
