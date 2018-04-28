@@ -1,10 +1,12 @@
-from sqlalchemy import Boolean, Column, Integer, String, Text
+from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text
 
-from config.settings import db
+from config.settings import BaseModel
 
 
-class User(db.Model):
+class User(BaseModel):
     id: Column = Column(Integer, primary_key = True)
+    created_at: DateTime = Column(DateTime)
+    updated_at: DateTime = Column(DateTime)
     username: Column = Column(String(64), index = True, unique = True, nullable = False)
     email: Column = Column(String(120), index = True, unique = True)
     password: Column = Column(String(128))
@@ -34,7 +36,7 @@ class User(db.Model):
     def identity(self):
         return self.id
 
-    def is_valid(self):
+    def is_active(self):
         if not self.is_active:
             raise Exception("user has been disabled")
 

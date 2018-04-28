@@ -1,14 +1,14 @@
 from logging.handlers import RotatingFileHandler
-
-from flask import Flask, logging
+import logging
+from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
-# from flask_jwt_extended import JWTManager
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_marshmallow import Marshmallow
 from flask_praetorian import Praetorian
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy_mixins import AllFeaturesMixin
 
 from config.static_config import LOG_DIR
 
@@ -27,11 +27,15 @@ limit = Limiter(
     key_func = get_remote_address,
     default_limits = ["200 per day", "50 per hour"]
 )
-# jwt = JWTManager(app)
 
 # DB Init -------------------------------------------------
 
 db = SQLAlchemy(app)
+class BaseModel(
+    db.Model,
+    AllFeaturesMixin
+):
+    pass
 
 # Jwt -----------------------------------------------------
 
