@@ -28,13 +28,13 @@ LOG_DIR = os.path.join(BASE_DIRECTORY, 'logs')
 # DB STATIC CONFIG-----------------------------------------
 
 DB_DIALECTS = {
-    'mysql'     : 'mysql',
-    'postgresql': 'postgresql',
-    'sqlite'    : 'sqlite'
+	'mysql'     : 'mysql',
+	'postgresql': 'postgresql',
+	'sqlite'    : 'sqlite'
 }
 DB_DRIVERS = {
-    'mysql'     : 'mysqlclient',
-    'postgresql': 'psycopg2'
+	'mysql'     : 'mysqlclient',
+	'postgresql': 'psycopg2'
 }
 
 DB_DIALECT = DB_DIALECTS['mysql']
@@ -51,15 +51,15 @@ DB_QUERY_LOGGING = False
 # DB CONFIG------------------------------------------------
 
 if DB_DRIVER == 'sqlite':
-    SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}:///{DB_NAME}.db'
+	SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}:///{DB_NAME}.db'
 else:
-    SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
+	SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
 
 PONY = {
-    'provider': DB_DRIVER,
-    'user'    : DB_USERNAME,
-    'password': DB_PASSWORD,
-    'dbname'  : DB_NAME
+	'provider': DB_DRIVER,
+	'user'    : DB_USERNAME,
+	'password': DB_PASSWORD,
+	'dbname'  : DB_NAME
 }
 
 

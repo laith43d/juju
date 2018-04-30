@@ -5,11 +5,11 @@ import click
 
 @click.group()
 def cli():
-    """
-    DB operations.
-    :return:
-    """
-    pass
+	"""
+	DB operations.
+	:return:
+	"""
+	pass
 
 
 #
@@ -115,28 +115,28 @@ def cli():
 @click.argument('model_name', required = True)
 # @click.option('--with-migration', is_flag = True)
 def make_model(model_name: str, with_migration):
-    """
-    Create model.\n
-    :param model_name: model name in singular form.\n
-    :param with_migration: would you like to add migration?\n
-    :return: None
-    """
-    # if with_migration:
-    #     call(['python', 'db.py', 'make:migration', model_name,
-    #           '-p', 'databases/migrations', '--table', model_name, '--create'])
+	"""
+	Create model.\n
+	:param model_name: model name in singular form.\n
+	:param with_migration: would you like to add migration?\n
+	:return: None
+	"""
+	# if with_migration:
+	#     call(['python', 'db.py', 'make:migration', model_name,
+	#           '-p', 'databases/migrations', '--table', model_name, '--create'])
 
-    if not os.path.isfile(f'models/{model_name.capitalize()}.py'):
+	if not os.path.isfile(f'models/{model_name.capitalize()}.py'):
 
-        with open(f'models/{model_name.capitalize()}.py', 'w') as f:
-            f.write('from config.settings import db\n\n\n')
-            f.write(f'class {model_name.capitalize()}(db.Model):\n')
-            f.write('    pass\n')
+		with open(f'models/{model_name.capitalize()}.py', 'w') as f:
+			f.write('from config.settings import db\n\n\n')
+			f.write(f'class {model_name.capitalize()}(db.Model):\n')
+			f.write('    pass\n')
 
-        with open(f'api/__init__.py', 'a+') as f:
-            f.write(
-                f'from models.{model_name.capitalize()} import {model_name.capitalize()}\n')
+		with open(f'api/__init__.py', 'a+') as f:
+			f.write(
+				f'from models.{model_name.capitalize()} import {model_name.capitalize()}\n')
 
-        click.echo('\033[92mModel Created Successfully!\033[0m')
+		click.echo('\033[92mModel Created Successfully!\033[0m')
 
-    else:
-        click.echo('\033[95mModel Already Exists!\033[0m')
+	else:
+		click.echo('\033[95mModel Already Exists!\033[0m')
