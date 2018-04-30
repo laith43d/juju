@@ -34,7 +34,7 @@ DB_DIALECTS = {
 }
 DB_DRIVERS = {
     'mysql'     : 'mysqlclient',
-    'postgresql': 'psycopg2-binary'
+    'postgresql': 'psycopg2'
 }
 
 DB_DIALECT = DB_DIALECTS['mysql']

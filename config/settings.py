@@ -1,5 +1,7 @@
 from logging.handlers import RotatingFileHandler
 import logging
+
+from dash import Dash
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
@@ -31,13 +33,13 @@ limit = Limiter(
 # DB Init -------------------------------------------------
 
 db = SQLAlchemy(app)
-class BaseModel(
-    db.Model,
-    AllFeaturesMixin
-):
+
+
+class BaseModel(db.Model, AllFeaturesMixin):
     pass
 
 # Jwt -----------------------------------------------------
+
 
 app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
 app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}

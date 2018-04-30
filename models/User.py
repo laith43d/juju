@@ -5,9 +5,10 @@ from config.settings import BaseModel
 
 class User(BaseModel):
     id: Column = Column(Integer, primary_key = True)
-    created_at: DateTime = Column(DateTime)
-    updated_at: DateTime = Column(DateTime)
+    created_at: Column = Column(DateTime)
+    updated_at: Column = Column(DateTime)
     username: Column = Column(String(64), index = True, unique = True, nullable = False)
+    name: Column = Column(String(120))
     email: Column = Column(String(120), index = True, unique = True)
     password: Column = Column(String(128))
     password_again: Column = Column(String(128))
