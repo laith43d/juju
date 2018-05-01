@@ -1,45 +1,46 @@
-from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text
+import datetime
 
-from config.settings import BaseModel
+from sqlalchemy import Boolean, Column, String, Text, Integer, DateTime
+
+from config.settings import BaseModel, M
 
 
-class User(BaseModel):
-	id: Column = Column(Integer, primary_key = True)
-	created_at: Column = Column(DateTime)
-	updated_at: Column = Column(DateTime)
-	username: Column = Column(String(64), index = True, unique = True, nullable = False)
-	name: Column = Column(String(120))
-	email: Column = Column(String(120), index = True, unique = True)
-	password: Column = Column(String(128))
-	password_again: Column = Column(String(128))
-	roles: Column = Column(Text)
-	is_active: Column = Column(Boolean, default = True, server_default = 'true')
+class User(M, BaseModel):
+    id: Column = Column(Integer, primary_key = True)
+    created_at: Column = Column(DateTime, default = datetime.datetime.now())
+    username: Column = Column(String(64), index = True, unique = True, nullable = False)
+    name: Column = Column(String(120))
+    email: Column = Column(String(120), index = True, unique = True)
+    password: Column = Column(String(128))
+    password_again: Column = Column(String(128))
+    roles: Column = Column(Text)
+    is_active: Column = Column(Boolean, default = True, server_default = 'true')
 
-	def __repr__(self):
-		return '<User {}>'.format(self.username)
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
 
-	@property
-	def rolenames(self):
-		try:
-			return self.roles.split(',')
-		except Exception:
-			return []
+    @property
+    def rolenames(self):
+        try:
+            return self.roles.split(',')
+        except Exception:
+            return []
 
-	@classmethod
-	def lookup(cls, username):
-		return cls.query.filter_by(username = username).one_or_none()
+    @classmethod
+    def lookup(cls, username):
+        return cls.query.filter_by(username = username).one_or_none()
 
-	@classmethod
-	def identify(cls, id):
-		return cls.query.get(id)
+    @classmethod
+    def identify(cls, id):
+        return cls.query.get(id)
 
-	@property
-	def identity(self):
-		return self.id
+    @property
+    def identity(self):
+        return self.id
 
-	def is_active(self):
-		if not self.is_active:
-			raise Exception("user has been disabled")
+    def is_active(self):
+        if not self.is_active:
+            raise Exception("user has been disabled")
 
 # Seed DB -------------------------------------------------
 

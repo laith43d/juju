@@ -1,7 +1,6 @@
 from logging.handlers import RotatingFileHandler
 import logging
 
-from dash import Dash
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
@@ -25,18 +24,17 @@ bcrypt = Bcrypt(app)
 CORS(app)
 ma = Marshmallow(app)
 limit = Limiter(
-	app,
-	key_func = get_remote_address,
-	default_limits = ["200 per day", "50 per hour"]
+    app,
+    key_func = get_remote_address,
+    default_limits = ["200 per day", "50 per hour"]
 )
 
 # DB Init -------------------------------------------------
 
 db = SQLAlchemy(app)
+BaseModel = AllFeaturesMixin
+M = db.Model
 
-
-class BaseModel(db.Model, AllFeaturesMixin):
-	pass
 
 # Jwt -----------------------------------------------------
 
@@ -72,7 +70,7 @@ guard.init_app(app, User)
 # Logging -------------------------------------------------
 
 formatter = logging.Formatter(
-	"[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
+    "[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
 handler = RotatingFileHandler(LOG_DIR + '/app.log', maxBytes = 1000000, backupCount = 5)
 handler.setLevel(logging.DEBUG)
 handler.setFormatter(formatter)

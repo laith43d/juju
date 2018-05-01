@@ -1,5 +1,4 @@
 import os
-from datetime import timedelta
 
 # STATIC CONFIG--------------------------------------------
 
@@ -21,23 +20,23 @@ JWT_SECRET_KEY = 'f4f6b032d87bf6915832ed19e1b5823717b7fbd83a3e24513a25b34a859173
 
 # PATHS----------------------------------------------------
 
-BASE_DIRECTORY = os.getcwd()
+BASE_DIR = os.getcwd()
 API_PREFIX = ''
-LOG_DIR = os.path.join(BASE_DIRECTORY, 'logs')
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
 
 # DB STATIC CONFIG-----------------------------------------
 
 DB_DIALECTS = {
-	'mysql'     : 'mysql',
-	'postgresql': 'postgresql',
-	'sqlite'    : 'sqlite'
+    'mysql'     : 'mysql',
+    'postgresql': 'postgresql',
+    'sqlite'    : 'sqlite'
 }
 DB_DRIVERS = {
-	'mysql'     : 'mysqlclient',
-	'postgresql': 'psycopg2'
+    'mysql'     : 'mysqlclient',
+    'postgresql': 'psycopg2'
 }
 
-DB_DIALECT = DB_DIALECTS['mysql']
+DB_DIALECT = DB_DIALECTS['sqlite']
 DB_DRIVER = DB_DRIVERS['mysql']
 DB_NAME = 'juju'
 DB_HOST = 'localhost'
@@ -50,16 +49,17 @@ DB_QUERY_LOGGING = False
 
 # DB CONFIG------------------------------------------------
 
-if DB_DRIVER == 'sqlite':
-	SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}:///{DB_NAME}.db'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+if DB_DIALECT == 'sqlite':
+    SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}:///{DB_NAME}.db'
 else:
-	SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
+    SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
 
 PONY = {
-	'provider': DB_DRIVER,
-	'user'    : DB_USERNAME,
-	'password': DB_PASSWORD,
-	'dbname'  : DB_NAME
+    'provider': DB_DRIVER,
+    'user'    : DB_USERNAME,
+    'password': DB_PASSWORD,
+    'dbname'  : DB_NAME
 }
 
 
