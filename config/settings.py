@@ -9,7 +9,6 @@ from flask_limiter.util import get_remote_address
 from flask_marshmallow import Marshmallow
 from flask_praetorian import Praetorian
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy_mixins import AllFeaturesMixin
 
 from config.static_config import LOG_DIR
 
@@ -32,7 +31,6 @@ limit = Limiter(
 # DB Init -------------------------------------------------
 
 db = SQLAlchemy(app)
-BaseModel = AllFeaturesMixin
 M = db.Model
 
 

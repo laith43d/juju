@@ -1,13 +1,12 @@
 import datetime
 
-from sqlalchemy import Boolean, Column, String, Text, Integer, DateTime
+from sqlalchemy import Boolean, Column, String, Text
 
-from config.settings import BaseModel, M
+from config.settings import M
+from facilities.databases.DBMixins import IdTimestampMixin, BaseModel
 
 
-class User(M, BaseModel):
-    id: Column = Column(Integer, primary_key = True)
-    created_at: Column = Column(DateTime, default = datetime.datetime.now())
+class User(M, BaseModel, IdTimestampMixin):
     username: Column = Column(String(64), index = True, unique = True, nullable = False)
     name: Column = Column(String(120))
     email: Column = Column(String(120), index = True, unique = True)
@@ -31,8 +30,8 @@ class User(M, BaseModel):
         return cls.query.filter_by(username = username).one_or_none()
 
     @classmethod
-    def identify(cls, id):
-        return cls.query.get(id)
+    def identify(cls, id_):
+        return cls.query.get(id_)
 
     @property
     def identity(self):
