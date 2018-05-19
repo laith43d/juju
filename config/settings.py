@@ -2,14 +2,12 @@ from logging.handlers import RotatingFileHandler
 import logging
 
 from flask import Flask
-from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from flask_marshmallow import Marshmallow
+from flask_orator import Orator
+# from pony.orm import Database
 from flask_praetorian import Praetorian
-from flask_sqlalchemy import SQLAlchemy
-
 from config.static_config import LOG_DIR
 
 # APP Initialization --------------------------------------
@@ -18,21 +16,19 @@ app = Flask(__name__)
 app.config.from_object('config.static_config')
 
 # Modules Initialization ----------------------------------
-
-bcrypt = Bcrypt(app)
+# bcrypt = Bcrypt(app)
 CORS(app)
-ma = Marshmallow(app)
 limit = Limiter(
     app,
     key_func = get_remote_address,
     default_limits = ["200 per day", "50 per hour"]
 )
-
 # DB Init -------------------------------------------------
 
-db = SQLAlchemy(app)
+db = Orator(app)
 M = db.Model
-
+# db = Database()
+# M = db.Entity
 
 # Jwt -----------------------------------------------------
 
@@ -62,8 +58,8 @@ guard = Praetorian()
 
 # Uncomment the following line after creating and importing the `User` class
 
-from models import User
-guard.init_app(app, User)
+# from models import User
+# guard.init_app(app, User)
 
 # Logging -------------------------------------------------
 
@@ -77,6 +73,11 @@ app.logger.addHandler(handler)
 # logger shortcut, example: Log.info('your message'), that would automatically be logged in the log file
 # specified above.
 Log = app.logger
+
+# Api initialization --------------------------------------
+
+# api = Api(app)
+# principal = Principal(app)
 
 # Registered Api & Models ---------------------------------
 

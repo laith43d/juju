@@ -36,7 +36,7 @@ DB_DRIVERS = {
     'postgresql': 'psycopg2'
 }
 
-DB_DIALECT = DB_DIALECTS['sqlite']
+DB_DIALECT = DB_DIALECTS['mysql']
 DB_DRIVER = DB_DRIVERS['mysql']
 DB_NAME = 'juju'
 DB_HOST = 'localhost'
@@ -48,12 +48,24 @@ DB_PREFIX = ''
 DB_QUERY_LOGGING = False
 
 # DB CONFIG------------------------------------------------
+#
+# SQLALCHEMY_TRACK_MODIFICATIONS = False
+# if DB_DIALECT == 'sqlite':
+#     SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}:///{DB_NAME}.db'
+# else:
+#     SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
 
-SQLALCHEMY_TRACK_MODIFICATIONS = False
-if DB_DIALECT == 'sqlite':
-    SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}:///{DB_NAME}.db'
-else:
-    SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
+
+ORATOR_DATABASES = {
+    DB_DIALECT: {
+        'driver'  : DB_DIALECT,
+        'host'    : DB_HOST,
+        'database': DB_NAME,
+        'user'    : DB_USERNAME,
+        'password': DB_PASSWORD,
+        'prefix'  : DB_PREFIX
+    }
+}
 
 PONY = {
     'provider': DB_DRIVER,
@@ -61,5 +73,3 @@ PONY = {
     'password': DB_PASSWORD,
     'dbname'  : DB_NAME
 }
-
-

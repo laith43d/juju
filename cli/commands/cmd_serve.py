@@ -10,10 +10,7 @@ def cli():
     in a production like environment, please deploy with Docker.
     :return: Application instance
     """
-    pass
-
-
-@cli.command(name = 'serve')
-def serve():
     click.echo('\033[95mINFO: Starting the app..\033[0m')
     app.run()
+
+

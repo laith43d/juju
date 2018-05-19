@@ -30,10 +30,37 @@ def make_api(api_name: str, model):
             call(['juju', 'db', 'make:model', api_name])
 
         with open(f'api/{api_name.capitalize()}.py', 'w') as f:
-            f.write('from flask_orator import jsonify\n')
-            f.write('from flask_classful import FlaskView as Resource\n\n\n')
-            f.write(f'class {api_name.capitalize()}View(Resource):\n')
-            f.write(f'    pass\n')
+            f.write(f'''
+
+from flask_classful import FlaskView as Resource, route
+from models.{api_name.capitalize()} import {api_name.capitalize()}
+from flask import jsonify, request
+
+    @route('', methods = ['GET'])
+    def all(self):
+        return {api_name.capitalize()}.all().to_json()
+
+    @route('/<int:id_>', methods = ['GET'])
+    def one(self, id_):
+        return {api_name.capitalize()}.find(id_).to_json()
+
+    @route('add', methods = ['POST'])
+    def add(self):
+        {api_name.capitalize()}.create(**request.get_json())
+        return jsonify({'message': '{api_name} added successfully'})
+
+    @route('update/<int:id_>', methods = ['PATCH'])
+    def update(self, id_):
+        {api_name} = {api_name.capitalize()}.find_or_fail(id_)
+        {api_name}.update(**request.get_json())
+        return jsonify({api_name}.to_json())
+
+    @route('delete/<int:id_>', methods = ['DELETE'])
+    def delete(self, id_):
+        {api_name.capitalize()}.destroy(id_)
+        return jsonify({'message': '{api_name} deleted successfully'})
+
+''')
 
         with open(f'api/__init__.py', 'a+') as f:
             f.write(

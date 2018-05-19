@@ -1,19 +1,11 @@
-import datetime
-
-from sqlalchemy import Boolean, Column, String, Text
-
 from config.settings import M
-from facilities.databases.DBMixins import IdTimestampMixin, BaseModel
 
 
-class User(M, BaseModel, IdTimestampMixin):
-    username: Column = Column(String(64), index = True, unique = True, nullable = False)
-    name: Column = Column(String(120))
-    email: Column = Column(String(120), index = True, unique = True)
-    password: Column = Column(String(128))
-    password_again: Column = Column(String(128))
-    roles: Column = Column(Text)
-    is_active: Column = Column(Boolean, default = True, server_default = 'true')
+class User(M):
+    __table__ = 'users'
+    __fillable__ = ['*']
+
+    # __guarded__ = ['id', 'password', 'password_again']
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -27,11 +19,11 @@ class User(M, BaseModel, IdTimestampMixin):
 
     @classmethod
     def lookup(cls, username):
-        return cls.query.filter_by(username = username).one_or_none()
+        return cls.where('username', username).first_or_fail()
 
     @classmethod
     def identify(cls, id_):
-        return cls.query.get(id_)
+        return cls.find_or_fail(id_)
 
     @property
     def identity(self):
@@ -40,6 +32,30 @@ class User(M, BaseModel, IdTimestampMixin):
     def is_active(self):
         if not self.is_active:
             raise Exception("user has been disabled")
+
+#
+#     @property
+#     def rolenames(self):
+#         try:
+#             return self.roles.split(',')
+#         except Exception:
+#             return []
+#
+#     @classmethod
+#     def lookup(cls, username):
+#         return cls.query.filter_by(username = username).one_or_none()
+#
+#     @classmethod
+#     def identify(cls, id_):
+#         return cls.query.get(id_)
+#
+#     @property
+#     def identity(self):
+#         return self.id
+#
+#     def is_active(self):
+#         if not self.is_active:
+#             raise Exception("user has been disabled")
 
 # Seed DB -------------------------------------------------
 

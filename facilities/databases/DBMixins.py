@@ -1,9 +1,43 @@
 import datetime
+from json import dumps
 
+from flask import current_app
 from sqlalchemy import Column, DateTime, Integer, event
 from sqlalchemy_mixins import AllFeaturesMixin
 
-BaseModel = AllFeaturesMixin
+ActiveRecord = AllFeaturesMixin
+
+
+def serialize(_query):
+    indent = None
+    separators = (',', ':')
+
+    master = {}
+    dict_ = {}
+    try:
+        for u in _query:
+            d = u.__dict__
+            for n in d.keys():
+                if n != '_sa_instance_state':
+                    dict_[n] = d[n]
+            x = d['id']
+            master[x] = dict_
+    except:
+        d = _query.__dict__
+        for n in d.keys():
+            if n != '_sa_instance_state':
+                dict_[n] = d[n]
+        x = d['id']
+        master[x] = dict_
+
+    if current_app.config['JSONIFY_PRETTYPRINT_REGULAR'] or current_app.debug:
+        indent = 2
+        separators = (', ', ': ')
+
+    return current_app.response_class(
+        dumps(master, indent = indent, separators = separators) + '\n',
+        mimetype = current_app.config['JSONIFY_MIMETYPE']
+    )
 
 
 class Timestamp(object):
@@ -15,16 +49,16 @@ class Timestamp(object):
 
     """
 
-    created_at = Column(DateTime, default = datetime.datetime.now, nullable = False)
-    updated_at = Column(DateTime, default = datetime.datetime.now, nullable = False)
+    created_at = Column(DateTime, default = datetime.datetime.now(), nullable = True)
+    updated_at = Column(DateTime, default = datetime.datetime.now(), nullable = True)
 
 
 @event.listens_for(Timestamp, 'before_update', propagate = True)
-def timestamp_before_update(mapper, connection, target):
+def timestamp_before_update(target):
     # When a model with a timestamp is updated; force update the updated
     # timestamp.
     target.updated_at = datetime.datetime.now()
 
 
-class IdTimestampMixin(Timestamp):
+class IDMixin(Timestamp):
     id: Column = Column(Integer, primary_key = True)
