@@ -48,13 +48,6 @@ DB_PREFIX = ''
 DB_QUERY_LOGGING = False
 
 # DB CONFIG------------------------------------------------
-#
-# SQLALCHEMY_TRACK_MODIFICATIONS = False
-# if DB_DIALECT == 'sqlite':
-#     SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}:///{DB_NAME}.db'
-# else:
-#     SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
-
 
 ORATOR_DATABASES = {
     DB_DIALECT: {

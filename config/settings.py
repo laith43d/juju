@@ -16,13 +16,14 @@ app = Flask(__name__)
 app.config.from_object('config.static_config')
 
 # Modules Initialization ----------------------------------
-# bcrypt = Bcrypt(app)
+
 CORS(app)
 limit = Limiter(
     app,
     key_func = get_remote_address,
     default_limits = ["200 per day", "50 per hour"]
 )
+
 # DB Init -------------------------------------------------
 
 db = Orator(app)
@@ -31,7 +32,6 @@ M = db.Model
 # M = db.Entity
 
 # Jwt -----------------------------------------------------
-
 
 app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
 app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
@@ -75,6 +75,8 @@ app.logger.addHandler(handler)
 Log = app.logger
 
 # Api initialization --------------------------------------
+# Optionally you can use Flask-Potion + Principal ---------
+# uncomment the following two lines and import libs -------
 
 # api = Api(app)
 # principal = Principal(app)

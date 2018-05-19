@@ -33,6 +33,8 @@ class User(M):
         if not self.is_active:
             raise Exception("user has been disabled")
 
+
+# Using Praetorian specific features
 #
 #     @property
 #     def rolenames(self):
