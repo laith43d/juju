@@ -1,14 +1,12 @@
 version: "2"
 
 services:
-  postgres:
+  db:
     env_file:
       - ".env"
-    image: "postgres:10.3-alpine"
-    ports:
-      - "5432:5432"
+    image: "mysql"
     volumes:
-      - "postgres:/var/lib/postgresql/data"
+      - "db:/var/lib/mysql/data"
 
   web:
     build: "."
@@ -28,4 +26,4 @@ services:
 
 
 volumes:
-  postgres: {}
+  db: {}

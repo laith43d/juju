@@ -1,5 +1,6 @@
 # Juju
 
+![juju](https://emojipedia-us.s3.amazonaws.com/thumbs/120/apple/129/potato_1f954.png)
 
 ## About Juju
 
