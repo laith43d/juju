@@ -19,7 +19,7 @@ Juju is extendable, Flask runs at the heart of Juju makes it very easy to benefi
 
 ## Learning Juju
 
-Documentation is still not completed, will be available ASAP.
+Documentation hasn't completed yet, but will be available ASAP.
 
 ### Installation and running
 
