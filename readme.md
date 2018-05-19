@@ -7,11 +7,11 @@ Juju is a REST application framework with expressive, elegant structure. We beli
 
 - Simple, fast routing engine.
 - Powerful yet easy to use middleware, simply utilize decorators which everyone loves.
-- Expressive, intuitive database ORM based on SQLAlchemy. Although the framework is ORM agnostic, Juju ORM comes enabled out of the box. PonyORM is available to use out of the box as well, but it is not enabled by default.
-- Database agnostic schema migrations (Juju ORM only).
-- Robust asynchronous task queue/job queue based on distributed message passing using Celery.
+- Expressive, intuitive database ORM called Orator. Although the framework is ORM agnostic, Juju ORM comes enabled out of the box. PonyORM is available to use out of the box as well, but it is not enabled by default.
+- Database agnostic schema migrations (Orator ORM only).
 - Uses Gunicorn server out of the box (feel free to use whatever you like).
 - Easy to use command line tool.
+- Database tasks command line tool.
 - Easy to manage extension deployment.
 
 Juju is extendable, Flask runs at the heart of Juju makes it very easy to benefit from Flask ecosystem. Juju is accessible, yet powerful, providing tools needed for large, robust applications.
@@ -28,7 +28,8 @@ Documentation is still not completed, will be available ASAP.
 * `pip install -r requirements.txt`
 * `pip install --editable .`
 * Use `juju` command to build your application, or you can build everything manually.
-* Scaffolding will be added soon.
+* Use `python db.py` to manage database tasks from the command line.
+* Quick start guide as well as video tutorials will be available soon.
 
 ## Contributing
 
