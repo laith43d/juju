@@ -49,6 +49,27 @@ DB_QUERY_LOGGING = False
 
 # DB CONFIG------------------------------------------------
 
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+if DB_DIALECT == 'sqlite':
+    SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}:///{DB_NAME}.db'
+else:
+    SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
+
+sql_config = {
+    'SQL_DATABASE_URI': SQLALCHEMY_DATABASE_URI,
+    'SQL_ISOLATION_LEVEL': 'SERIALIZABLE',
+    'SQL_ECHO': True,
+    'SQL_ECHO_POOL': False,
+    'SQL_CONVERT_UNICODE': True,
+    'SQL_POOL_SIZE': 5,
+    'SQL_POOL_TIMEOUT': 30,
+    'SQL_POOL_RECYCLE': 3600,
+    'SQL_MAX_OVERFLOW': 10,
+    'SQL_AUTOCOMMIT': False,
+    'SQL_AUTOFLUSH': True,
+    'SQL_EXPIRE_ON_COMMIT': True
+}
+
 ORATOR_DATABASES = {
     DB_DIALECT: {
         'driver'  : DB_DIALECT,

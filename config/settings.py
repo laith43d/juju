@@ -5,10 +5,13 @@ from flask import Flask
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from flask_orator import Orator
+# from flask_orator import Orator
 # from pony.orm import Database
 from flask_praetorian import Praetorian
-from config.static_config import LOG_DIR
+from sqlalchemy import MetaData
+from sqlservice import declarative_base, SQLClient, ModelBase
+
+from config.static_config import LOG_DIR, sql_config
 
 # APP Initialization --------------------------------------
 
@@ -26,8 +29,12 @@ limit = Limiter(
 
 # DB Init -------------------------------------------------
 
-db = Orator(app)
-M = db.Model
+M = declarative_base(ModelBase, metadata = MetaData())
+db = SQLClient(sql_config, model_class = M)
+
+# db = Orator(app)
+# M = db.Model
+
 # db = Database()
 # M = db.Entity
 

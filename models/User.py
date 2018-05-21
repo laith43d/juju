@@ -1,15 +1,26 @@
+from sqlalchemy import Column, Text, Boolean, String
+
 from config.settings import M
+from facilities.databases.DBMixins import IDMixin
 
 
-class User(M):
-    __table__ = 'users'
-    __fillable__ = ['*']
+class User(M, IDMixin):
+    __tablename__ = 'user'
 
-    # __guarded__ = ['id', 'password', 'password_again']
+    username: Column = Column(String(64), index = True, unique = True, nullable = False)
+    name: Column = Column(String(120))
+    email: Column = Column(String(120), index = True, unique = True)
+    password: Column = Column(String(128))
+    password_again: Column = Column(String(128))
+    roles: Column = Column(Text)
+    is_active: Column = Column(Boolean, default = True, server_default = 'true')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+
+    # Using Praetorian specific features ----------------------
+    #
     @property
     def rolenames(self):
         try:
@@ -19,11 +30,11 @@ class User(M):
 
     @classmethod
     def lookup(cls, username):
-        return cls.where('username', username).first_or_fail()
+        return cls.query.filter_by(username = username).one_or_none()
 
     @classmethod
     def identify(cls, id_):
-        return cls.find_or_fail(id_)
+        return cls.query.get(id_)
 
     @property
     def identity(self):
@@ -34,30 +45,40 @@ class User(M):
             raise Exception("user has been disabled")
 
 
-# Using Praetorian specific features
-#
-#     @property
-#     def rolenames(self):
-#         try:
-#             return self.roles.split(',')
-#         except Exception:
-#             return []
-#
-#     @classmethod
-#     def lookup(cls, username):
-#         return cls.query.filter_by(username = username).one_or_none()
-#
-#     @classmethod
-#     def identify(cls, id_):
-#         return cls.query.get(id_)
-#
-#     @property
-#     def identity(self):
-#         return self.id
-#
-#     def is_active(self):
-#         if not self.is_active:
-#             raise Exception("user has been disabled")
+
+    # to be used with Orator ----------------------------------
+    # class User(M):
+    #     __table__ = 'users'
+    #     __fillable__ = ['*']
+    #
+    #     # __guarded__ = ['id', 'password', 'password_again']
+    #
+    #     def __repr__(self):
+    #         return '<User {}>'.format(self.username)
+    #
+    #     @property
+    #     def rolenames(self):
+    #         try:
+    #             return self.roles.split(',')
+    #         except Exception:
+    #             return []
+    #
+    #     @classmethod
+    #     def lookup(cls, username):
+    #         return cls.where('username', username).first_or_fail()
+    #
+    #     @classmethod
+    #     def identify(cls, id_):
+    #         return cls.find_or_fail(id_)
+    #
+    #     @property
+    #     def identity(self):
+    #         return self.id
+    #
+    #     def is_active(self):
+    #         if not self.is_active:
+    #             raise Exception("user has been disabled")
+
 
 # Seed DB -------------------------------------------------
 
@@ -85,7 +106,6 @@ class User(M):
 #     ))
 #     db.session.commit()
 
-#
 # Set up some routes for the example ----------------------
 #
 # # curl http://localhost:5000/login -X POST \
@@ -149,3 +169,4 @@ class User(M):
 #             flask_praetorian.current_user().username,
 #         )
 #     )
+
