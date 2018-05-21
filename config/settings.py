@@ -29,14 +29,14 @@ limit = Limiter(
 
 # DB Init -------------------------------------------------
 
-M = declarative_base(ModelBase, metadata = MetaData())
-db = SQLClient(sql_config, model_class = M)
+Model = declarative_base(ModelBase, metadata = MetaData())
+db = SQLClient(sql_config, model_class = Model)
 
 # db = Orator(app)
-# M = db.Model
+# Model = db.Model
 
 # db = Database()
-# M = db.Entity
+# Model = db.Entity
 
 # Jwt -----------------------------------------------------
 

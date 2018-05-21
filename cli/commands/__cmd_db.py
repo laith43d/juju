@@ -129,10 +129,10 @@ def make_model(model_name: str, with_migration):
 
         with open(f'models/{model_name.capitalize()}.py', 'w') as f:
             f.write(f'''
-from config.settings import M
+from config.settings import Model
 
 
-class {model_name.capitalize()}(M):
+class {model_name.capitalize()}(Model):
     __fillable__ = ['*']
 ''')
 

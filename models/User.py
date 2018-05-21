@@ -1,11 +1,11 @@
 from sqlalchemy import Column, Text, Boolean, String
 
-from config.settings import M
+from config.settings import Model
 from facilities.databases.DBMixins import IDMixin
 
 
-class User(M, IDMixin):
-    __tablename__ = 'user'
+class User(Model, IDMixin):
+    __tablename__ = 'users'
 
     username: Column = Column(String(64), index = True, unique = True, nullable = False)
     name: Column = Column(String(120))
@@ -18,9 +18,7 @@ class User(M, IDMixin):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
-
-    # Using Praetorian specific features ----------------------
-    #
+# Using Praetorian specific features ----------------------
     @property
     def rolenames(self):
         try:
@@ -46,38 +44,38 @@ class User(M, IDMixin):
 
 
 
-    # to be used with Orator ----------------------------------
-    # class User(M):
-    #     __table__ = 'users'
-    #     __fillable__ = ['*']
-    #
-    #     # __guarded__ = ['id', 'password', 'password_again']
-    #
-    #     def __repr__(self):
-    #         return '<User {}>'.format(self.username)
-    #
-    #     @property
-    #     def rolenames(self):
-    #         try:
-    #             return self.roles.split(',')
-    #         except Exception:
-    #             return []
-    #
-    #     @classmethod
-    #     def lookup(cls, username):
-    #         return cls.where('username', username).first_or_fail()
-    #
-    #     @classmethod
-    #     def identify(cls, id_):
-    #         return cls.find_or_fail(id_)
-    #
-    #     @property
-    #     def identity(self):
-    #         return self.id
-    #
-    #     def is_active(self):
-    #         if not self.is_active:
-    #             raise Exception("user has been disabled")
+# to be used with Orator ----------------------------------
+# class User(Model):
+#     __table__ = 'users'
+#     __fillable__ = ['*']
+#
+#     # __guarded__ = ['id', 'password', 'password_again']
+#
+#     def __repr__(self):
+#         return '<User {}>'.format(self.username)
+#
+#     @property
+#     def rolenames(self):
+#         try:
+#             return self.roles.split(',')
+#         except Exception:
+#             return []
+#
+#     @classmethod
+#     def lookup(cls, username):
+#         return cls.where('username', username).first_or_fail()
+#
+#     @classmethod
+#     def identify(cls, id_):
+#         return cls.find_or_fail(id_)
+#
+#     @property
+#     def identity(self):
+#         return self.id
+#
+#     def is_active(self):
+#         if not self.is_active:
+#             raise Exception("user has been disabled")
 
 
 # Seed DB -------------------------------------------------

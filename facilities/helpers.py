@@ -141,7 +141,7 @@ def parse_datetime(value):
 
     :param value: the datetime string
     """
-    for fmt in ('%Y-%m-%dT%H:%M:%S', '%Y-%m-%d %H:%M:%S'):
+    for fmt in ('%Y-%m-%dT%H:%Model:%S', '%Y-%m-%d %H:%Model:%S'):
         try:
             return datetime.strptime(value, fmt)
         except:
@@ -167,7 +167,7 @@ def parse_time(value):
 
     :param value: the time string
     """
-    for fmt in ('%H:%M:%S', '%H%M%S'):
+    for fmt in ('%H:%Model:%S', '%H%Model%S'):
         try:
             return datetime.strptime(value, fmt).date()
         except:
