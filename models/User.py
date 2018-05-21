@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Text, Boolean, String
+from sqlalchemy import Boolean, Column, String, Text
 
 from config.settings import Model
 from facilities.databases.DBMixins import IDMixin
@@ -10,7 +10,7 @@ class User(Model, IDMixin):
     username: Column = Column(String(64), index = True, unique = True, nullable = False)
     name: Column = Column(String(120))
     email: Column = Column(String(120), index = True, unique = True)
-    password: Column = Column(String(128))
+    password_hash: Column = Column(String(128))
     password_again: Column = Column(String(128))
     roles: Column = Column(Text)
     is_active: Column = Column(Boolean, default = True, server_default = 'true')
@@ -18,7 +18,7 @@ class User(Model, IDMixin):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
-# Using Praetorian specific features ----------------------
+    # Using Praetorian specific features ----------------------
     @property
     def rolenames(self):
         try:
@@ -41,8 +41,6 @@ class User(Model, IDMixin):
     def is_active(self):
         if not self.is_active:
             raise Exception("user has been disabled")
-
-
 
 # to be used with Orator ----------------------------------
 # class User(Model):
@@ -167,4 +165,3 @@ class User(Model, IDMixin):
 #             flask_praetorian.current_user().username,
 #         )
 #     )
-
