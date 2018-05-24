@@ -1,0 +1,26 @@
+GET http://localhost:5000/user
+Content-Type: application/json
+
+###
+
+GET http://localhost:5000/user/usernames
+Content-Type: application/json
+
+
+
+
+### Send POST request with json body
+POST http://localhost:5000/user
+Content-Type: application/json
+
+
+{
+  "username": "again10",
+  "name": "Layth Again",
+  "email": "laith@gmail.com",
+  "password": "123",
+  "password_again": "123",
+  "roles": "can_nothing"
+}
+
+###

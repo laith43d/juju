@@ -5,13 +5,10 @@ from flask import Flask
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-# from flask_orator import Orator
-# from pony.orm import Database
+from flask_orator import Orator
 from flask_praetorian import Praetorian
-from sqlalchemy import MetaData
-from sqlservice import declarative_base, SQLClient, ModelBase
 
-from config.static_config import LOG_DIR, sql_config
+from config.static_config import LOG_DIR
 
 # APP Initialization --------------------------------------
 
@@ -29,21 +26,18 @@ limit = Limiter(
 
 # DB Init -------------------------------------------------
 
-Model = declarative_base(ModelBase, metadata = MetaData())
-db = SQLClient(sql_config, model_class = Model)
+db = Orator(app)
+Model = db.Model
 
-# db = Orator(app)
-# Model = db.Model
-
-# db = Database()
-# Model = db.Entity
 
 # Jwt -----------------------------------------------------
 
 app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
 app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
 
-guard = Praetorian()
+from models import User
+guard = Praetorian(app = app, user_class = User)
+
 # The User class argument supplied during initialization
 # represents the class that should be used to check for
 # authorization for decorated routes.
@@ -63,11 +57,6 @@ guard = Praetorian()
 # Provide an identity instance attribute
 #   should return the unique id of the user
 
-# Uncomment the following line after creating and importing the `User` class
-
-# from models import User
-# guard.init_app(app, User)
-
 # Logging -------------------------------------------------
 
 formatter = logging.Formatter(
@@ -80,13 +69,6 @@ app.logger.addHandler(handler)
 # logger shortcut, example: Log.info('your message'), that would automatically be logged in the log file
 # specified above.
 Log = app.logger
-
-# Api initialization --------------------------------------
-# Optionally you can use Flask-Potion + Principal ---------
-# uncomment the following two lines and import libs -------
-
-# api = Api(app)
-# principal = Principal(app)
 
 # Registered Api & Models ---------------------------------
 

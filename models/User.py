@@ -1,57 +1,20 @@
-from sqlalchemy import Boolean, Column, String, Text
-
 from config.settings import Model
-from facilities.databases.DBMixins import IDMixin
 
 
-class User(Model, IDMixin):
-    __tablename__ = 'users'
-
-    username: Column = Column(String(64), index = True, unique = True, nullable = False)
-    name: Column = Column(String(120))
-    email: Column = Column(String(120), index = True, unique = True)
-    password_hash: Column = Column(String(128))
-    password_again: Column = Column(String(128))
-    roles: Column = Column(Text)
-    is_active: Column = Column(Boolean, default = True, server_default = 'true')
-
-    def __repr__(self):
-        return '<User {}>'.format(self.username)
-
-    # Using Praetorian specific features ----------------------
-    @property
-    def rolenames(self):
-        try:
-            return self.roles.split(',')
-        except Exception:
-            return []
-
-    @classmethod
-    def lookup(cls, username):
-        return cls.query.filter_by(username = username).one_or_none()
-
-    @classmethod
-    def identify(cls, id_):
-        return cls.query.get(id_)
-
-    @property
-    def identity(self):
-        return self.id
-
-    def is_active(self):
-        if not self.is_active:
-            raise Exception("user has been disabled")
-
-# to be used with Orator ----------------------------------
-# class User(Model):
-#     __table__ = 'users'
-#     __fillable__ = ['*']
-#
-#     # __guarded__ = ['id', 'password', 'password_again']
+# class User(Model, IDMixin, AllFeaturesMixin):
+#     __tablename__ = 'user'
+#     username: Column = Column(String(64), index = True, unique = True, nullable = False)
+#     name: Column = Column(String(120))
+#     email: Column = Column(String(120), index = True, unique = True)
+#     password_hash: Column = Column(String(128))
+#     password_again: Column = Column(String(128))
+#     roles: Column = Column(Text)
+#     is_active: Column = Column(Boolean, default = True, server_default = 'true')
 #
 #     def __repr__(self):
 #         return '<User {}>'.format(self.username)
 #
+#     # Using Praetorian specific features ----------------------
 #     @property
 #     def rolenames(self):
 #         try:
@@ -61,11 +24,11 @@ class User(Model, IDMixin):
 #
 #     @classmethod
 #     def lookup(cls, username):
-#         return cls.where('username', username).first_or_fail()
+#         return cls.query.filter_by(username = username).one_or_none()
 #
 #     @classmethod
 #     def identify(cls, id_):
-#         return cls.find_or_fail(id_)
+#         return cls.query.get(id_)
 #
 #     @property
 #     def identity(self):
@@ -74,6 +37,38 @@ class User(Model, IDMixin):
 #     def is_active(self):
 #         if not self.is_active:
 #             raise Exception("user has been disabled")
+
+# to be used with Orator ----------------------------------
+class User(Model):
+    __table__ = 'users'
+    __fillable__ = ['username', 'name', 'password', 'password_again', 'email', 'roles']
+    # __guarded__ = ['id', 'password', 'password_again']
+
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
+
+    @property
+    def rolenames(self):
+        try:
+            return self.roles.split(',')
+        except Exception:
+            return []
+
+    @classmethod
+    def lookup(cls, username):
+        return cls.where('username', username).first_or_fail()
+
+    @classmethod
+    def identify(cls, id_):
+        return cls.find_or_fail(id_)
+
+    @property
+    def identity(self):
+        return self.id
+
+    def is_active(self):
+        if not self.is_active:
+            raise Exception("user has been disabled")
 
 
 # Seed DB -------------------------------------------------
