@@ -28,12 +28,12 @@ LOG_DIR = os.path.join(BASE_DIR, 'logs')
 
 DB_DIALECTS = {
     'mysql'     : 'mysql',
-    'postgresql': 'postgresql',
+    'postgres': 'postgres',
     'sqlite'    : 'sqlite'
 }
 DB_DRIVERS = {
     'mysql'     : 'mysqlclient',
-    'postgresql': 'psycopg2'
+    'postgres': 'psycopg2'
 }
 
 DB_DIALECT = DB_DIALECTS['mysql']

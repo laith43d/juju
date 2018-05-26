@@ -56,11 +56,15 @@ class User(Model):
 
     @classmethod
     def lookup(cls, username):
-        return cls.where('username', username).first_or_fail()
+        result = cls.query().where('username', username).first_or_fail()
+        if result:
+            return result
+        else:
+            return None
 
     @classmethod
     def identify(cls, id_):
-        return cls.find_or_fail(id_)
+        return cls.find(id_)
 
     @property
     def identity(self):
