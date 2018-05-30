@@ -7,6 +7,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_orator import Orator
 from flask_praetorian import Praetorian
+from flask_sqlalchemy import SQLAlchemy
 
 from config.static_config import LOG_DIR
 
@@ -26,9 +27,10 @@ limit = Limiter(
 
 # DB Init -------------------------------------------------
 
-db = Orator(app)
+# db = Orator(app)
+# Model = db.Model
+db = SQLAlchemy(app)
 Model = db.Model
-
 
 # Jwt -----------------------------------------------------
 
