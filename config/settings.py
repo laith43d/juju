@@ -41,7 +41,6 @@ Base = declarative_base()
 # we use AllFeaturesMixin to Inject all Mixins ------------
 class Model(Base, AllFeaturesMixin):
     __abstract__ = True
-    __repr__ = ReprMixin.__repr__
     pass
 
 # Setup ORM -----------------------------------------------
