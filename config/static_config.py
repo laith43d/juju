@@ -49,6 +49,10 @@ DB_QUERY_LOGGING = False
 
 # DB CONFIG------------------------------------------------
 
+# available options: SQLALCHEMY, ORATOR, PONY
+ORM = 'SQLALCHEMY'
+
+
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 if DB_DIALECT == 'sqlite':
     SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}:///{DB_NAME}.db'

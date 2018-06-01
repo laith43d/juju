@@ -8,7 +8,7 @@ Juju is a REST application framework with expressive, elegant structure. We beli
 
 - Simple, fast routing engine using Classful resource views declaration.
 - Powerful yet easy to use middleware, simply utilize decorators which everyone loves.
-- Expressive, intuitive database ORM. Although the framework is ORM agnostic, Juju ORM comes enabled out of the box. PonyORM is available to use out of the box as well, but it is not enabled by default, SqlAlchemy is also supported out of the box with minor configuration changes.
+- Expressive, intuitive database ORM. Although the framework is ORM agnostic, Juju ORM comes enabled out of the box. PonyORM is available to use out of the box as well, but it is not enabled by default, Orator is also supported out of the box with minor configuration changes.
 - Database agnostic schema migrations (Orator, and SQLAlchemy ORM, Pony still doesn't support migrations).
 - Uses Gunicorn server out of the box (feel free to use whatever you like).
 - Easy to use command line tool.
