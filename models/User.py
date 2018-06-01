@@ -1,11 +1,10 @@
 from sqlalchemy import Column, String, Text, Boolean
-from sqlalchemy_mixins import AllFeaturesMixin
 
 from config.settings import Model
 from facilities.databases.DBMixins import IDMixin
 
 
-class User(Model, IDMixin, AllFeaturesMixin):
+class User(Model, IDMixin):
     __tablename__ = 'user'
     username: Column = Column(String(64), index = True, unique = True, nullable = False)
     name: Column = Column(String(120))
