@@ -29,7 +29,8 @@ Documentation hasn't completed yet, but will be available ASAP.
 * `pip install -r requirements.txt`
 * `pip install --editable .`
 * Use `juju` command to build your application, or you can build everything manually.
-* Use `python db.py` to manage database tasks from the command line.
+* Use `python manage.py` to manage DB migrations for SQLAlchemy ORM.
+* Use `python db.py` to manage DB migration for Orator ORM.
 * Quick start guide as well as video tutorials will be available soon.
 
 ## Contributing
