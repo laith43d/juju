@@ -31,9 +31,8 @@ def make_api(api_name: str, model):
 
         with open(f'api/{api_name.capitalize()}.py', 'w') as f:
             f.write(f"from flask_classful import FlaskView as Resource, route\n"
-                    f"from models.{api_name.capitalize()} import {api_name.capitalize()}\n"
-                    f"from flask_orator import jsonify\n"
-                    f"from flask import request\n"
+                    f"from db.models.{api_name.capitalize()} import {api_name.capitalize()}\n"
+                    f"from flask import request, jsonify\n"
                     f"\n"
                     f"class {api_name.capitalize()}View(Resource):\n"
                     f"    pass")

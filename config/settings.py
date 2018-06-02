@@ -29,35 +29,21 @@ limit = Limiter(
 
 # DB Init -------------------------------------------------
 
-# If you use Pony ORM, uncomment this section -------------
-if ORM == 'PONY':
-    db = Pony(app).db
-    Model = db.Entity
 
-# If you use Orator ORM, uncomment this section -----------
-if ORM == 'ORATOR':
-    db = Orator(app)
-    Model = db.Model
-
-if ORM == 'SQLALCHEMY':
-    # If you use SQLAlchemy, uncomment this section -------
-    db = SQLAlchemy(app)
-    Base = db.Model
+db = SQLAlchemy(app)
+Base = db.Model
 
 
-    # we use AllFeaturesMixin to Inject all Mixins --------
-    class Model(Base, AllFeaturesMixin):
-        __abstract__ = True
-        pass
+# we use AllFeaturesMixin to Inject all Mixins ------------
+class Model(Base, AllFeaturesMixin):
+    __abstract__ = True
+    pass
 
-    # set DB session --------------------------------------
-    session = db.session
-
-    # -----------------------------------------------------
-    # setup base model: inject session so
-    # it can be accessed from model
-    # -----------------------------------------------------
-    Model.set_session(session)
+# ---------------------------------------------------------
+# setup base model: inject session so
+# it can be accessed from model
+# ---------------------------------------------------------
+Model.set_session(db.session)
 
 # Jwt -----------------------------------------------------
 # for usage check out the user example --------------------

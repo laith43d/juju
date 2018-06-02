@@ -14,7 +14,6 @@ def cli():
 
 @cli.command(name = "make:model")
 @click.argument('model_name', required = True)
-@click.option('--migration', is_flag = True)
 def make_model(model_name: str, migration):
     """
     Create model.\n
@@ -22,10 +21,6 @@ def make_model(model_name: str, migration):
     :param migration: if you would like to create migration as well\n
     :return: None
     """
-    if migration:
-        call(['python', 'db.py', 'make:migration', model_name,
-              '-p', 'migrations', '--table', model_name, '--create'])
-
     if not os.path.isfile(f'db/models/{model_name.capitalize()}.py'):
 
         with open(f'db/models/{model_name.capitalize()}.py', 'w') as f:
