@@ -9,7 +9,7 @@ from flask_praetorian import Praetorian
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_mixins import AllFeaturesMixin
 
-from config.static_config import LOG_DIR, ORM
+from config.static_config import LOG_DIR
 
 # APP Initialization --------------------------------------
 
@@ -29,11 +29,9 @@ limit = Limiter(
 
 
 db = SQLAlchemy(app)
-Base = db.Model
-
 
 # we use AllFeaturesMixin to Inject all Mixins ------------
-class Model(Base, AllFeaturesMixin):
+class Model(db.Model, AllFeaturesMixin):
     __abstract__ = True
     pass
 
