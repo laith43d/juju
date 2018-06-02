@@ -2,7 +2,7 @@ import os
 
 # STATIC CONFIG--------------------------------------------
 
-NAME = 'JUJU 0.1'
+NAME = 'JUJU 0.5'
 
 # set this to false in a non-development environment-------
 # CAUTION: very dangerous----------------------------------
