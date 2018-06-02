@@ -8,8 +8,8 @@ Juju is a REST application framework with expressive, elegant structure. We beli
 
 - Simple, fast routing engine using Classful resource views declaration.
 - Powerful yet easy to use middleware, simply utilize decorators which everyone loves.
-- Expressive, intuitive database ORM. Although the framework is ORM agnostic, Juju ORM comes enabled out of the box. PonyORM is available to use out of the box as well, but it is not enabled by default, Orator is also supported out of the box with minor configuration changes.
-- Database agnostic schema migrations (Orator, and SQLAlchemy ORM, Pony still doesn't support migrations).
+- Expressive, intuitive database ORM. Although the framework is ORM agnostic, Juju ORM comes enabled out of the box.
+- Database agnostic schema migrations.
 - Uses Gunicorn server out of the box (feel free to use whatever you like).
 - Easy to use command line tool.
 - Database tasks command line tool.
@@ -29,8 +29,7 @@ Documentation hasn't completed yet, but will be available ASAP.
 * `pip install -r requirements.txt`
 * `pip install --editable .`
 * Use `juju` command to build your application, or you can build everything manually.
-* Use `python manage.py` to manage DB migrations for SQLAlchemy ORM.
-* Use `python db.py` to manage DB migration for Orator ORM.
+* Use `python manage.py` to manage DB migrations, run a dev server, or drop in an app friendly shell.
 * Quick start guide as well as video tutorials will be available soon.
 
 ## Contributing

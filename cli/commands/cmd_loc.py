@@ -30,16 +30,12 @@ def cli():
     :return: None
     """
     file_types = (
-        ['Python', 'py', '#'],
-        ['HTML', 'html', '<!--'],
-        ['CSS', 'css', '\/\*'],
-        ['JS', 'js', '\/\/']
+        ['Python', 'py', '#']
     )
 
     click.echo('Lines of code\n-------------')
 
-    for file_type in file_types:
-        click.echo("{0}: {1}".format(file_type[0], count_locs(file_type[1],
-                                                              file_type[2])))
+    click.echo("{0}: {1}".format(file_types[0], count_locs(file_types[1],
+                                                          file_types[2])))
 
     return None
