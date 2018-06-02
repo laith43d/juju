@@ -45,7 +45,7 @@ class User(Model, IDMixin):
 # class User(Model):
 #     __table__ = 'users'
 #     __fillable__ = ['username', 'name', 'password', 'password_again', 'email', 'roles']
-#     __guarded__ = ['id', 'password', 'password_again']
+#     __hidden__ = ['id', 'password', 'password_again']
     #
     # def __repr__(self):
     #     return '<User {}>'.format(self.username)
