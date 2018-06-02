@@ -1,5 +1,4 @@
 import os
-from subprocess import call
 
 import click
 
@@ -7,14 +6,14 @@ import click
 @click.group()
 def cli():
     """
-    DB operations.
+    Make a new model.
     """
     pass
 
 
 @cli.command(name = "make:model")
 @click.argument('model_name', required = True)
-def make_model(model_name: str, migration):
+def make_model(model_name: str):
     """
     Create model.\n
     :param model_name: model name in singular form.\n
@@ -32,7 +31,7 @@ class {model_name.capitalize()}(Model):
     pass
 ''')
 
-        with open(f'models/__init__.py', 'a+') as f:
+        with open(f'db/models/__init__.py', 'a+') as f:
             f.write(
                 f'from db.models.{model_name.capitalize()} import {model_name.capitalize()}\n')
 
