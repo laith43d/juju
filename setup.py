@@ -7,6 +7,7 @@ REST application framework with expressive, elegant structure.
 from setuptools import setup
 
 
+
 setup(
     name='JUJU-CLI',
     version='0.5',
