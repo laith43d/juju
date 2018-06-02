@@ -1,5 +1,5 @@
-from logging.handlers import RotatingFileHandler
 import logging
+from logging.handlers import RotatingFileHandler
 
 from flask import Flask
 from flask_cors import CORS
@@ -9,12 +9,9 @@ from flask_orator import Orator
 from flask_pony import Pony
 from flask_praetorian import Praetorian
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy_mixins import AllFeaturesMixin
 
-from config.static_config import LOG_DIR, SQLALCHEMY_DATABASE_URI, ORM
+from config.static_config import LOG_DIR, ORM
 
 # APP Initialization --------------------------------------
 
@@ -32,7 +29,7 @@ limit = Limiter(
 
 # DB Init -------------------------------------------------
 
-# If you use Pony ORM, uncomment this section -----------
+# If you use Pony ORM, uncomment this section -------------
 if ORM == 'PONY':
     db = Pony(app).db
     Model = db.Entity
@@ -43,28 +40,23 @@ if ORM == 'ORATOR':
     Model = db.Model
 
 if ORM == 'SQLALCHEMY':
-    # If you use SQLAlchemy, uncomment this section -----------
+    # If you use SQLAlchemy, uncomment this section -------
     db = SQLAlchemy(app)
-    Base = declarative_base()
+    Base = db.Model
 
-    # we use AllFeaturesMixin to Inject all Mixins ------------
+
+    # we use AllFeaturesMixin to Inject all Mixins --------
     class Model(Base, AllFeaturesMixin):
         __abstract__ = True
         pass
 
-    # Setup ORM -----------------------------------------------
-    engine = create_engine(SQLALCHEMY_DATABASE_URI, echo=True)
+    # set DB session --------------------------------------
+    session = db.session
 
-    # ---------------------------------------------------------
-    # autocommit=True - it's to make you see data in
-    # 3rd party DB view tool
-    # ---------------------------------------------------------
-    session = scoped_session(sessionmaker(bind=engine, autocommit=True))
-
-    # ---------------------------------------------------------
+    # -----------------------------------------------------
     # setup base model: inject session so
     # it can be accessed from model
-    # ---------------------------------------------------------
+    # -----------------------------------------------------
     Model.set_session(session)
 
 # Jwt -----------------------------------------------------
@@ -74,7 +66,8 @@ if ORM == 'SQLALCHEMY':
 app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
 app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
 
-from models import User
+from db.models import User
+
 guard = Praetorian(app = app, user_class = User)
 
 # Logging -------------------------------------------------
@@ -86,11 +79,11 @@ handler.setLevel(logging.DEBUG)
 handler.setFormatter(formatter)
 app.logger.addHandler(handler)
 
-# logger shortcut, example: Log.info('your message'), that would automatically be logged in the log file
+# logger shortcut, example: Log.info('your message'),
+# that would automatically be logged in the log file
 # specified above.
 Log = app.logger
 
 # Registered Api & Models ---------------------------------
-
 from api import *
-from models import *
+from db.models import *
