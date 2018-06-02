@@ -31,13 +31,8 @@ DB_DIALECTS = {
     'postgres': 'postgres',
     'sqlite'    : 'sqlite'
 }
-DB_DRIVERS = {
-    'mysql'     : 'mysqlclient',
-    'postgres': 'psycopg2'
-}
 
 DB_DIALECT = DB_DIALECTS['mysql']
-DB_DRIVER = DB_DRIVERS['mysql']
 DB_NAME = 'juju'
 DB_HOST = 'localhost'
 DB_READ_HOST_NAME = 'localhost'
@@ -49,45 +44,8 @@ DB_QUERY_LOGGING = False
 
 # DB CONFIG------------------------------------------------
 
-# available options: SQLALCHEMY, ORATOR, PONY
-ORM = 'SQLALCHEMY'
-
-
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 if DB_DIALECT == 'sqlite':
     SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}:///{DB_NAME}.db'
 else:
     SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
-
-sql_config = {
-    'SQL_DATABASE_URI': SQLALCHEMY_DATABASE_URI,
-    'SQL_ISOLATION_LEVEL': 'SERIALIZABLE',
-    'SQL_ECHO': True,
-    'SQL_ECHO_POOL': False,
-    'SQL_CONVERT_UNICODE': True,
-    'SQL_POOL_SIZE': 5,
-    'SQL_POOL_TIMEOUT': 30,
-    'SQL_POOL_RECYCLE': 3600,
-    'SQL_MAX_OVERFLOW': 10,
-    'SQL_AUTOCOMMIT': False,
-    'SQL_AUTOFLUSH': True,
-    'SQL_EXPIRE_ON_COMMIT': True
-}
-
-ORATOR_DATABASES = {
-    DB_DIALECT: {
-        'driver'  : DB_DIALECT,
-        'host'    : DB_HOST,
-        'database': DB_NAME,
-        'user'    : DB_USERNAME,
-        'password': DB_PASSWORD,
-        'prefix'  : DB_PREFIX
-    }
-}
-
-PONY = {
-    'provider': DB_DRIVER,
-    'user'    : DB_USERNAME,
-    'password': DB_PASSWORD,
-    'dbname'  : DB_NAME
-}
