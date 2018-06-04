@@ -41,7 +41,7 @@ def make_api(api_name: str, model):
             f.write(
                 f'from api.{api_name.capitalize()} import {api_name.capitalize()}View\n')
             f.write(
-                f'{api_name.capitalize()}View.register(app)\n\n')
+                f'{api_name.capitalize()}View.register(app, route_prefix = API_PREFIX)\n\n')
 
         click.echo('\033[92mApi Created Successfully!\033[0m')
 

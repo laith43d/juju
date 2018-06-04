@@ -14,7 +14,7 @@ from config.static_config import LOG_DIR
 # APP Initialization --------------------------------------
 
 app = Flask(__name__)
-app.config.from_object('config.static_config')
+app.config.from_object('config.static_config.DevelopmentConfig')
 
 # Modules Initialization ----------------------------------
 
@@ -26,7 +26,6 @@ limit = Limiter(
 )
 
 # DB Init -------------------------------------------------
-
 
 db = SQLAlchemy(app)
 
@@ -69,3 +68,4 @@ Log = app.logger
 # Registered Api & Models ---------------------------------
 from api import *
 from db.models import *
+
