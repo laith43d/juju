@@ -48,7 +48,6 @@ app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
 app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
 
 from db.models import User
-
 guard = Praetorian(app = app, user_class = User)
 
 # Logging -------------------------------------------------
