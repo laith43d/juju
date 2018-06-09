@@ -20,9 +20,9 @@ def make_model(model_name: str):
     :param migration: if you would like to create migration as well\n
     :return: None
     """
-    if not os.path.isfile(f'db/models/{model_name.capitalize()}.py'):
+    if not os.path.isfile(f'models/{model_name}.py'):
 
-        with open(f'db/models/{model_name.capitalize()}.py', 'w') as f:
+        with open(f'models/{model_name}.py', 'w') as f:
             f.write(f'''
 from config.settings import Model
 
@@ -31,9 +31,9 @@ class {model_name.capitalize()}(Model):
     pass
 ''')
 
-        with open(f'db/models/__init__.py', 'a+') as f:
+        with open(f'models/__init__.py', 'a+') as f:
             f.write(
-                f'from db.models.{model_name.capitalize()} import {model_name.capitalize()}\n')
+                f'from models.{model_name} import {model_name.capitalize()}\n')
 
         click.echo('\033[92mModel Created Successfully!\033[0m')
 
