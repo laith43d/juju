@@ -4,7 +4,6 @@ from config.settings import Model
 
 
 class User(Model):
-    pass
 # example to be used with SQLAlchemy
     # __tablename__ = 'users'
     # username: Column = Column(String(64), index = True, unique = True, nullable = False)
@@ -43,39 +42,39 @@ class User(Model):
     #         raise Exception("user has been disabled")
 
 # example to be used with Orator ----------------------------------
-#     __table__ = 'users'
-#     __fillable__ = ['username', 'name', 'password', 'password_again', 'email', 'roles']
-#     __hidden__ = ['id', 'password', 'password_again']
-    #
-    # def __repr__(self):
-    #     return '<User {}>'.format(self.username)
-    #
-    # @property
-    # def rolenames(self):
-    #     try:
-    #         return self.roles.split(',')
-    #     except Exception:
-    #         return []
-    #
-    # @classmethod
-    # def lookup(cls, username):
-    #     result = cls.query().where('username', username).first_or_fail()
-    #     if result:
-    #         return result
-    #     else:
-    #         return None
-    #
-    # @classmethod
-    # def identify(cls, id_):
-    #     return cls.find(id_)
-    #
-    # @property
-    # def identity(self):
-    #     return self.id
-    #
-    # def is_active(self):
-    #     if not self.is_active:
-    #         raise Exception("user has been disabled")
+    __table__ = 'users'
+    __fillable__ = ['username', 'name', 'password', 'password_again', 'email', 'roles']
+    __hidden__ = ['id', 'password', 'password_again']
+
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
+
+    @property
+    def rolenames(self):
+        try:
+            return self.roles.split(',')
+        except Exception:
+            return []
+
+    @classmethod
+    def lookup(cls, username):
+        result = cls.query().where('username', username).first_or_fail()
+        if result:
+            return result
+        else:
+            return None
+
+    @classmethod
+    def identify(cls, id_):
+        return cls.find(id_)
+
+    @property
+    def identity(self):
+        return self.id
+
+    def is_active(self):
+        if not self.is_active:
+            raise Exception("user has been disabled")
 
 
 # Seed DB -------------------------------------------------
