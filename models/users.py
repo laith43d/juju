@@ -1,4 +1,3 @@
-from sqlalchemy import Column, String, Text, Boolean
 
 from config.settings import Model
 
