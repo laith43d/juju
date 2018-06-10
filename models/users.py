@@ -42,6 +42,17 @@ class User(Model):
     #         raise Exception("user has been disabled")
 
 # example to be used with Orator ----------------------------------
+# Migration settings
+# table.increments('id')
+#             table.string('username', 64).unique()
+#             table.string('name', 128)
+#             table.string('email', 128)
+#             table.string('password', 64)
+#             table.string('password_again', 64)
+#             table.text('roles')
+#             table.boolean('is_active').default(True)
+#             table.timestamps()
+
     __table__ = 'users'
     __fillable__ = ['username', 'name', 'password', 'password_again', 'email', 'roles']
     __hidden__ = ['id', 'password', 'password_again']
@@ -76,32 +87,6 @@ class User(Model):
         if not self.is_active:
             raise Exception("user has been disabled")
 
-
-# Seed DB -------------------------------------------------
-
-# Add users for the example
-# with app.app_context():
-#     db.create_all()
-#     db.session.add(User(
-#         username='TheDude',
-#         password=guard.encrypt_password('abides'),
-#     ))
-#     db.session.add(User(
-#         username='Walter',
-#         password=guard.encrypt_password('calmerthanyouare'),
-#         roles='admin'
-#     ))
-#     db.session.add(User(
-#         username='Donnie',
-#         password=guard.encrypt_password('iamthewalrus'),
-#         roles='operator'
-#     ))
-#     db.session.add(User(
-#         username='Maude',
-#         password=guard.encrypt_password('andthorough'),
-#         roles='operator,admin'
-#     ))
-#     db.session.commit()
 
 # Set up some routes for the example ----------------------
 #
