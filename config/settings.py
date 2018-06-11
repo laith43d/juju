@@ -5,16 +5,17 @@ from flask import Flask
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_orator import Orator
 from flask_praetorian import Praetorian
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_mixins import AllFeaturesMixin
 
-from config.static_config import LOG_DIR
+from config.static_config import LOG_DIR, ORM
 
 # APP Initialization --------------------------------------
 
 app = Flask(__name__)
-app.config.from_object('config.static_config')
+app.config.from_object('config.static_config.DevelopmentConfig')
 
 # Modules Initialization ----------------------------------
 
@@ -27,19 +28,23 @@ limit = Limiter(
 
 # DB Init -------------------------------------------------
 
+if ORM == 'O':
+    db = Orator(app)
+    Model = db.Model
 
-db = SQLAlchemy(app)
+if ORM == 'SA':
+    db = SQLAlchemy(app)
 
-# we use AllFeaturesMixin to Inject all Mixins ------------
-class Model(db.Model, AllFeaturesMixin):
-    __abstract__ = True
-    pass
+    # we use AllFeaturesMixin to Inject all Mixins ------------
+    class Model(db.Model, AllFeaturesMixin):
+        __abstract__ = True
+        pass
 
-# ---------------------------------------------------------
-# setup base model: inject session so
-# it can be accessed from model
-# ---------------------------------------------------------
-Model.set_session(db.session)
+    # ---------------------------------------------------------
+    # setup base model: inject session so
+    # it can be accessed from model
+    # ---------------------------------------------------------
+    Model.set_session(db.session)
 
 # Jwt -----------------------------------------------------
 # for usage check out the user example --------------------
@@ -48,8 +53,7 @@ Model.set_session(db.session)
 app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
 app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
 
-from db.models import User
-
+from models import User
 guard = Praetorian(app = app, user_class = User)
 
 # Logging -------------------------------------------------
@@ -67,5 +71,4 @@ app.logger.addHandler(handler)
 Log = app.logger
 
 # Registered Api & Models ---------------------------------
-from api import *
-from db.models import *
+

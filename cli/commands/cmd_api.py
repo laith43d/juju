@@ -29,19 +29,20 @@ def make_api(api_name: str, model):
         if model:
             call(['juju', 'db', 'make:model', api_name])
 
-        with open(f'api/{api_name.capitalize()}.py', 'w') as f:
+        with open(f'api/{api_name}.py', 'w') as f:
             f.write(f"from flask_classful import FlaskView as Resource, route\n"
-                    f"from db.models.{api_name.capitalize()} import {api_name.capitalize()}\n"
-                    f"from flask import request, jsonify\n"
+                    f"from models.{api_name} import {api_name.capitalize()}\n"
+                    f"from flask import request\n"
+                    f"from flask_orator import jsonify\n"
                     f"\n"
                     f"class {api_name.capitalize()}View(Resource):\n"
                     f"    pass")
 
         with open(f'api/__init__.py', 'a+') as f:
             f.write(
-                f'from api.{api_name.capitalize()} import {api_name.capitalize()}View\n')
+                f'from api.{api_name} import {api_name.capitalize()}View\n')
             f.write(
-                f'{api_name.capitalize()}View.register(app)\n\n')
+                f'{api_name.capitalize()}View.register(app, route_prefix = API_PREFIX)\n\n')
 
         click.echo('\033[92mApi Created Successfully!\033[0m')
 
