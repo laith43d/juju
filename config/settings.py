@@ -22,8 +22,8 @@ app.config.from_object('config.static_config.DevelopmentConfig')
 CORS(app)
 limit = Limiter(
     app,
-    key_func = get_remote_address,
-    default_limits = ["200 per day", "50 per hour"]
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"]
 )
 
 # DB Init -------------------------------------------------
@@ -54,13 +54,14 @@ app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
 app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
 
 from models import User
-guard = Praetorian(app = app, user_class = User)
+guard = Praetorian(app=app, user_class=User)
 
 # Logging -------------------------------------------------
 
 formatter = logging.Formatter(
     "[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
-handler = RotatingFileHandler(LOG_DIR + '/app.log', maxBytes = 1000000, backupCount = 5)
+handler = RotatingFileHandler(
+    LOG_DIR + '/app.log', maxBytes=1000000, backupCount=5)
 handler.setLevel(logging.DEBUG)
 handler.setFormatter(formatter)
 app.logger.addHandler(handler)
@@ -72,3 +73,5 @@ Log = app.logger
 
 # Registered Api & Models ---------------------------------
 
+from api import *
+from models import *

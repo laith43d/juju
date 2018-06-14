@@ -4,7 +4,7 @@
 
 ## About Juju
 
-Juju is a REST application framework with expressive, elegant structure. We believe development must be an enjoyable and creative experience to be truly fulfilling. Juju attempts to take the liability of organising the code as much as possible, making it a very easy to start developing your project within minutes, deployment is also very easy, whether you will deploy locally, on Docker, or creating microservices with server deployment, we've got you covered with easy to manage configuration, some of Juju features:
+Juju is a REST application framework with expressive, elegant structure. We believe development must be an enjoyable and creative experience to be truly fulfilling. Juju attempts to take the liability of organising the code as much as possible, making it a very easy to start developing your project within minutes, deployment is also very easy, whether you are deploying locally, on Docker, or creating microservices with server deployment, we've got you covered with easy to manage configuration, some of Juju features:
 
 - Simple, fast routing engine using Classful resource views declaration.
 - Powerful yet easy to use middleware, simply utilize decorators which everyone loves.
@@ -29,7 +29,7 @@ Documentation hasn't completed yet, but will be available ASAP.
 * `pip install -r requirements.txt`
 * `pip install --editable .`
 * Use `juju` command to build your application, or you can build everything manually.
-* Use `python manage.py` to manage DB migrations, run a dev server, or drop in an app friendly shell.
+* Use `python db.py` to manage DB migrations.
 * Quick start guide as well as video tutorials will be available soon.
 
 ## Contributing

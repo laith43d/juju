@@ -9,6 +9,7 @@ LOG_DIR = os.path.join(BASE_DIR, 'logs')
 # 'O' for Orator, 'SA' for SQLAlchemy
 ORM = 'O'
 
+
 class Config():
     # STATIC CONFIG--------------------------------------------
 
@@ -27,9 +28,9 @@ class Config():
     # DB STATIC CONFIG-----------------------------------------
 
     DB_DIALECTS = {
-        'mysql'   : 'mysql',
+        'mysql': 'mysql',
         'postgres': 'postgres',
-        'sqlite'  : 'sqlite'
+        'sqlite': 'sqlite'
     }
 
     DB_DIALECT = DB_DIALECTS['mysql']
@@ -44,7 +45,6 @@ class Config():
 
     # DB CONFIG------------------------------------------------
 
-
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     if DB_DIALECT == 'sqlite':
         SQLALCHEMY_DATABASE_URI = f'{DB_DIALECT}:///{DB_NAME}.db'
@@ -53,20 +53,23 @@ class Config():
 
     ORATOR_DATABASES = {
         DB_DIALECT: {
-            'driver'  : DB_DIALECT,
-            'host'    : DB_HOST,
+            'driver': DB_DIALECT,
+            'host': DB_HOST,
             'database': DB_NAME,
-            'user'    : DB_USERNAME,
+            'user': DB_USERNAME,
             'password': DB_PASSWORD,
-            'prefix'  : DB_PREFIX
+            'prefix': DB_PREFIX
         }
     }
+
 
 class ProductionConfig(Config):
     DEBUG = False
 
+
 class DevelopmentConfig(Config):
     DEBUG = True
+
 
 class TestingConfig(Config):
     TESTING = True
