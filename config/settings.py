@@ -5,12 +5,11 @@ from flask import Flask
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from flask_orator import Orator
 from flask_praetorian import Praetorian
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_mixins import AllFeaturesMixin
 
-from config.static_config import LOG_DIR, ORM
+from config.static_config import LOG_DIR
 
 # APP Initialization --------------------------------------
 
@@ -28,23 +27,19 @@ limit = Limiter(
 
 # DB Init -------------------------------------------------
 
-if ORM == 'O':
-    db = Orator(app)
-    Model = db.Model
 
-if ORM == 'SA':
-    db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 
-    # we use AllFeaturesMixin to Inject all Mixins ------------
-    class Model(db.Model, AllFeaturesMixin):
-        __abstract__ = True
-        pass
+# we use AllFeaturesMixin to Inject all Mixins ------------
+class Model(db.Model, AllFeaturesMixin):
+    __abstract__ = True
+    pass
 
-    # ---------------------------------------------------------
-    # setup base model: inject session so
-    # it can be accessed from model
-    # ---------------------------------------------------------
-    Model.set_session(db.session)
+# ---------------------------------------------------------
+# setup base model: inject session so
+# it can be accessed from model
+# ---------------------------------------------------------
+Model.set_session(db.session)
 
 # Jwt -----------------------------------------------------
 # for usage check out the user example --------------------

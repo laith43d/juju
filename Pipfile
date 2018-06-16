@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask-sqlalchemy = "*"
+sqlalchemy-mixins = "*"
+flask-praetorian = "*"
+flask-cors = "*"
+flask-limiter = "*"
+pymysql = "*"
+"psycopg2" = "*"
+flask-classful = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
