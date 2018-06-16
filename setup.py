@@ -10,7 +10,7 @@ from setuptools import setup
 
 setup(
     name='JUJU-CLI',
-    version='0.5',
+    version='0.6',
     url='http://github.com/laith43d/juju/',
     license='MIT',
     author='Layth Zahid',
