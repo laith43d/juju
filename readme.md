@@ -24,12 +24,11 @@ Documentation hasn't completed yet, but will be available ASAP.
 ### Installation and running
 
 * `git clone https://github.com/laith43d/juju.git`
-* `python3 -m venv venv`
-* `source venv/bin/activate`
-* `pip install -r requirements.txt`
-* `pip install --editable .`
+* `pipenv install`
 * Use `juju` command to build your application, or you can build everything manually.
-* Use `python db.py` to manage DB migrations.
+* Use `python manage.py` to manage DB migrations, drop into a context friendly shell, or run the dev-server.
+
+
 * Quick start guide as well as video tutorials will be available soon.
 
 ## Contributing

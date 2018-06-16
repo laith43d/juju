@@ -12,6 +12,7 @@ flask-limiter = "*"
 pymysql = "*"
 "psycopg2" = "*"
 flask-classful = "*"
+"e1839a8" = {path = ".", editable = true}
 
 [dev-packages]
 
