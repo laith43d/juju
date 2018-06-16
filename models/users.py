@@ -41,16 +41,6 @@ class User(Model):
     #         raise Exception("user has been disabled")
 
 # example to be used with Orator ----------------------------------
-# Migration settings
-#             table.increments('id')
-#             table.string('username', 64).unique()
-#             table.string('name', 128)
-#             table.string('email', 128)
-#             table.string('password', 64)
-#             table.string('password_again', 64)
-#             table.text('roles')
-#             table.boolean('is_active').default(True)
-#             table.timestamps()
 
     __table__ = 'users'
     __fillable__ = ['username', 'name', 'password', 'password_again', 'email', 'roles']
