@@ -1,6 +1,27 @@
 version: "2"
 
 services:
+  # app server
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    hostname: app
+    image: juju
+    volumes:
+      - .:/app/juju
+    command: ./docker/app/run_app.sh
+    ports:
+      - "8080:8080"
+    links:
+      - redis
+      - postgres
+    depends_on:
+      - redis
+      - postgres
+    environment:
+      redis_host: "redis"
+
   postgres:
     image: 'postgres:9.5'
     env_file:
@@ -10,37 +31,42 @@ services:
     ports:
       - '5432:5432'
 
-  web:
-    build: "."
-    command: >
-      gunicorn -b 0.0.0.0:8000
-        --access-logfile -
-        --reload
-        "cli.app:main"
+
+  # Celery beat
+  beat:
+    image: juju
+    volumes:
+      - .:/app/juju
+    command: ./docker/beat/run_beat.sh
+    links:
+      - redis
+      - postgres
     depends_on:
-      - "postgres"
-    env_file:
-      - ".env"
-    ports:
-      - "8000:8000"
-    volumes:
-      - ".:/app"
+      - postgres
+      - redis
+    environment:
+      redis_host: "redis"
+      mongo_host: "mongo"
 
+  # Celery worker
+  worker:
+    image: juju
+    volumes:
+      - .:/app/juju
+    command: ./docker/worker/run_worker.sh
+    links:
+      - redis
+      - postgres
+    depends_on:
+      - redis
+      - postgres
+    environment:
+      redis_host: "redis"
+
+  # Redis
   redis:
-    image: 'redis:3.0-alpine'
-    command: redis-server --requirepass devpassword
-    volumes:
-      - 'redis:/var/lib/redis/data'
-    ports:
-      - '6379:6379'
-
-  celery:
-    build: .
-    command: celery worker -B -l info -A juju.api.mail.tasks
-    env_file:
-      - '.env'
-    volumes:
-      - '.:/juju'
+    image: redis:4.0.9
+    hostname: redis
 
 volumes:
   postgres:

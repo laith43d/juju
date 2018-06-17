@@ -1,10 +1,7 @@
-from config.settings import app
+from config.settings import create_app
 
-#TODO refactor towards application factory
-
-def main():
-    app.run()
+app_instance = create_app()
 
 
 if __name__ == '__main__':
-    main()
+    app_instance.run()

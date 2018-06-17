@@ -14,6 +14,11 @@ pymysql = "*"
 flask-classful = "*"
 flask-migrate = "*"
 flask-script = "*"
+celery = "*"
+celery-redbeat = "*"
+flask-socketio = "*"
+flask-cache = "*"
+flask-mail = "*"
 
 [dev-packages]
 
