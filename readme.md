@@ -25,7 +25,6 @@ Documentation hasn't completed yet, but will be available ASAP.
 
 * `git clone https://github.com/laith43d/juju.git`
 * `pipenv install`
-* Use `juju` command to build your application, or you can build everything manually.
 * Use `python manage.py` to manage DB migrations, drop into a context friendly shell, or run the dev-server, as well as  to scaffold your application, or you can build everything manually, extend the CLI.
 
 
