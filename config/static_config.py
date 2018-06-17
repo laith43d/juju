@@ -105,6 +105,12 @@ class Config():
         'CACHE_REDIS_URL' : '{}/{}'.format(REDIS_DOMAIN, 2)
     }
 
+    IS_AUTH_ENABLED = True
+    IS_ERROR_MAIL_ENABLED = False
+
+
+    ADMINS = ['admin@webmaster.com']
+
     DEBUG = False
     TESTING = False
 
