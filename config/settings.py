@@ -15,8 +15,13 @@ from config.static_config import handler, current_config
 # APP Initialization --------------------------------------
 
 socketio = SocketIO()
-cache = Cache(config = current_config.CACHE_CONFIG)
+cache = Cache()
 mail = Mail()
+db = SQLAlchemy()
+guard = Praetorian()
+limit = Limiter(
+    key_func = get_remote_address,
+    default_limits = ["200 per day", "50 per hour"])
 
 
 celery_app = Celery(__name__,
@@ -30,7 +35,6 @@ auth_redis_client = redis.StrictRedis.from_url(current_config.AUTH_REDIS_URL)
 # Import Socket.IO events so that they are registered with Flask-SocketIO
 from . import events
 
-db = SQLAlchemy()
 
 # we use AllFeaturesMixin to Inject all Mixins ------------
 class Model(db.Model, AllFeaturesMixin):
@@ -43,13 +47,6 @@ class Model(db.Model, AllFeaturesMixin):
 # ---------------------------------------------------------
 Model.set_session(db.session)
 
-guard = Praetorian()
-
-limit = Limiter(
-            key_func = get_remote_address,
-            default_limits = ["200 per day", "50 per hour"])
-
-
 def create_app(main = True):
 
     app = Flask(__name__)
@@ -57,6 +54,9 @@ def create_app(main = True):
     CORS(app, supports_credentials = True)
     db.init_app(app)
     limit.init_app(app)
+    socketio.init_app(app)
+    cache.init_app(app, config = current_config.CACHE_CONFIG)
+    mail.init_app(app)
 
     # Jwt -----------------------------------------------------
     # for usage check out the user example --------------------
