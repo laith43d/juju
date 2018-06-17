@@ -10,7 +10,6 @@ Juju is a REST application framework with expressive, elegant structure. We beli
 - Powerful yet easy to use middleware, simply utilize decorators which everyone loves.
 - Expressive, intuitive database ORM. Although the framework is ORM agnostic, Juju ORM comes enabled out of the box.
 - Database agnostic schema migrations.
-- Uses Gunicorn server out of the box (feel free to use whatever you like).
 - Easy to use command line tool.
 - Database tasks command line tool.
 - Easy to manage extension deployment.
@@ -25,7 +24,6 @@ Documentation hasn't completed yet, but will be available ASAP.
 
 * `git clone https://github.com/laith43d/juju.git`
 * `pipenv install`
-* Use `juju` command to build your application, or you can build everything manually.
 * Use `python manage.py` to manage DB migrations, drop into a context friendly shell, or run the dev-server, as well as  to scaffold your application, or you can build everything manually, extend the CLI.
 
 
