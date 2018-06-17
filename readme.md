@@ -10,7 +10,6 @@ Juju is a REST application framework with expressive, elegant structure. We beli
 - Powerful yet easy to use middleware, simply utilize decorators which everyone loves.
 - Expressive, intuitive database ORM. Although the framework is ORM agnostic, Juju ORM comes enabled out of the box.
 - Database agnostic schema migrations.
-- Uses Gunicorn server out of the box (feel free to use whatever you like).
 - Easy to use command line tool.
 - Database tasks command line tool.
 - Easy to manage extension deployment.
