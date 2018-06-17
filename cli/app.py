@@ -1,4 +1,4 @@
-from .config.settings import app
+from config.settings import app
 
 #TODO refactor towards application factory
 

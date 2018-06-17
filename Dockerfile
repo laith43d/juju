@@ -13,4 +13,4 @@ RUN pipenv install -e .
 
 LABEL maintainer="Layth Zahid <L@LZAH.online>"
 
-CMD gunicorn -b 0.0.0.0:8000 --access-logfile - "app:main"
+CMD gunicorn -b 0.0.0.0:8000 --access-logfile - "cli.app:main"

@@ -2,7 +2,7 @@ import os
 
 # PATHS----------------------------------------------------
 
-BASE_DIR = os.getcwd()
+BASE_DIR = os.path.join(os.path.curdir, '')
 API_PREFIX = ''
 LOG_DIR = os.path.join(BASE_DIR, 'logs')
 
