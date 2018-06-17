@@ -2,7 +2,7 @@
 from subprocess import check_output
 
 import click
-
+from manage import cli
 
 def count_locs(file_type, comment_pattern):
     """
@@ -22,8 +22,8 @@ def count_locs(file_type, comment_pattern):
     return check_output(cmd, shell = True).decode('utf-8').replace('\n', '')
 
 
-@click.command()
-def cli():
+@cli.command(name = 'count:loc')
+def loc():
     """
     Count lines of code in the project.
 

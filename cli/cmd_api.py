@@ -3,14 +3,7 @@ from subprocess import call
 
 import click
 
-
-@click.group()
-def cli():
-    """
-    Api operations.
-    :return:
-    """
-    pass
+from manage import cli
 
 
 @cli.command(name = "make:api")

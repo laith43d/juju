@@ -1,13 +1,16 @@
-from flask_migrate import Migrate, MigrateCommand
-from flask_script import Manager
+from flask.cli import FlaskGroup
+from flask_migrate import Migrate
 
 from config.settings import app, db
 
-migrate = Migrate(app, db)
+m = Migrate()
+m.init_app(app, db)
 
-manager = Manager(app)
-manager.add_command('db', MigrateCommand)
+cli = FlaskGroup(app)
+
+from cli import *
+
 
 if __name__ == '__main__':
-    manager.run()
+    cli()
 

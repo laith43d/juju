@@ -2,13 +2,7 @@ import os
 
 import click
 
-
-@click.group()
-def cli():
-    """
-    Make a new model.
-    """
-    pass
+from manage import cli
 
 
 @cli.command(name = "make:model")

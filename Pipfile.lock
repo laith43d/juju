@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "193fe084dd912f6a379ef0ec8e6fb93cff2678dfb31aecd5275fd0d785989b10"
+            "sha256": "2c795fb51af8af6fd6ebb316fd711e13366d4f58d5302364516780c4d9b13344"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,12 @@
         ]
     },
     "default": {
+        "alembic": {
+            "hashes": [
+                "sha256:85bd3ea7633024e4930900bc64fb58f9742dedbc6ebb6ecf25be2ea9a3c1b32e"
+            ],
+            "version": "==0.9.9"
+        },
         "click": {
             "hashes": [
                 "sha256:29f99fc6125fbc931b758dc053b3114e55c77a6e4c6c3a2674a2dc986016381d",
@@ -60,12 +66,27 @@
             "index": "pypi",
             "version": "==1.0.1"
         },
+        "flask-migrate": {
+            "hashes": [
+                "sha256:2697d2a9f9cd7de14a01a3de9f6e27d44ccffe1a2bf59bae2b2bb22cecb9d86a",
+                "sha256:654af52ce82733fa066dc2a19cb462c52e56871a4785f03895a5bb43ea5a4e5b"
+            ],
+            "index": "pypi",
+            "version": "==2.2.0"
+        },
         "flask-praetorian": {
             "hashes": [
                 "sha256:9b44b65ead6a7641121c8ad5534c7da1b8239d0877920ea3ca695d1e8707211b"
             ],
             "index": "pypi",
             "version": "==0.4.6"
+        },
+        "flask-script": {
+            "hashes": [
+                "sha256:6425963d91054cfcc185807141c7314a9c5ad46325911bd24dcb489bd0161c65"
+            ],
+            "index": "pypi",
+            "version": "==2.0.6"
         },
         "flask-sqlalchemy": {
             "hashes": [
@@ -94,6 +115,12 @@
                 "sha256:a017b8d9e9da6761f4574642149c337f8f540d4edfe573fb91ad2c4001a2bc76"
             ],
             "version": "==1.3"
+        },
+        "mako": {
+            "hashes": [
+                "sha256:4e02fde57bd4abb5ec400181e4c314f56ac3e49ba4fb8b0d50bba18cb27d25ae"
+            ],
+            "version": "==1.0.7"
         },
         "markupsafe": {
             "hashes": [
@@ -183,6 +210,12 @@
                 "sha256:e27001de32f627c22380a688bcc43ce83504a7bc5da472209b4c70f02829f0b8"
             ],
             "version": "==2.7.3"
+        },
+        "python-editor": {
+            "hashes": [
+                "sha256:a3c066acee22a1c94f63938341d4fb374e3fdd69366ed6603d7b24bed1efc565"
+            ],
+            "version": "==1.0.3"
         },
         "pytzdata": {
             "hashes": [

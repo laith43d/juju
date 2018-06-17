@@ -2,11 +2,11 @@ import binascii
 import os
 
 import click
+from manage import cli
 
-
-@click.command()
+@cli.command(name = 'generate:secret')
 @click.argument('bytes', default = 128)
-def cli(bytes):
+def generate_secret(bytes):
     """
     Generate a random secret token.
 
