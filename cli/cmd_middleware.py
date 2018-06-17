@@ -3,18 +3,15 @@ import os
 import click
 
 
-@click.group()
-def cli():
-    """
-    Create a new middleware.
-    :return:
-    """
-    pass
+from manage import cli
 
 
 @cli.command(name = 'make:middleware')
 @click.argument('middleware_name', required = True)
 def make_middleware(middleware_name):
+    '''
+    Make a new middleware\n
+    '''
     if not os.path.isfile(f'facilities/middleware/{middleware_name}.py'):
         with open(f'facilities/middleware/{middleware_name}.py', 'w') as f:
             f.write(f'from functools import wraps\n'

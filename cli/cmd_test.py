@@ -3,9 +3,11 @@ from subprocess import call
 import click
 
 
-@click.command()
+from manage import cli
+
+@cli.command(name = 'make:test')
 @click.argument('path', default=os.path.join('juju', 'tests'))
-def cli(path):
+def test(path):
     """
     Run tests with Pytest.
 

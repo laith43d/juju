@@ -1,64 +1,23 @@
+from sqlalchemy import Column, String, Text, Boolean
 
 from config.settings import Model
+from facilities.databases.DBMixins import IDMixin
 
 
-class User(Model):
-# example to be used with SQLAlchemy
-    # __tablename__ = 'users'
-    # username: Column = Column(String(64), index = True, unique = True, nullable = False)
-    # name: Column = Column(String(120))
-    # email: Column = Column(String(120), index = True, unique = True)
-    # password_hash: Column = Column(String(128))
-    # password_again: Column = Column(String(128))
-    # roles: Column = Column(Text)
-    # is_active: Column = Column(Boolean, default = True, server_default = 'true')
-    #
-    # def __repr__(self):
-    #     return '<User {}>'.format(self.username)
-    #
-    # # Using Praetorian specific features ----------------------
-    # @property
-    # def rolenames(self):
-    #     try:
-    #         return self.roles.split(',')
-    #     except Exception:
-    #         return []
-    #
-    # @classmethod
-    # def lookup(cls, username):
-    #     return cls.query.filter_by(username = username).one_or_none()
-    #
-    # @classmethod
-    # def identify(cls, id_):
-    #     return cls.query.get(id_)
-    #
-    # @property
-    # def identity(self):
-    #     return self.id
-    #
-    # def is_active(self):
-    #     if not self.is_active:
-    #         raise Exception("user has been disabled")
-
-# example to be used with Orator ----------------------------------
-# Migration settings
-#             table.increments('id')
-#             table.string('username', 64).unique()
-#             table.string('name', 128)
-#             table.string('email', 128)
-#             table.string('password', 64)
-#             table.string('password_again', 64)
-#             table.text('roles')
-#             table.boolean('is_active').default(True)
-#             table.timestamps()
-
-    __table__ = 'users'
-    __fillable__ = ['username', 'name', 'password', 'password_again', 'email', 'roles']
-    __hidden__ = ['id', 'password', 'password_again']
+class User(Model, IDMixin):
+    __tablename__ = 'users'
+    username: Column = Column(String(64), index = True, unique = True, nullable = False)
+    name: Column = Column(String(120))
+    email: Column = Column(String(120), index = True, unique = True)
+    password_hash: Column = Column(String(128))
+    password_again: Column = Column(String(128))
+    roles: Column = Column(Text)
+    is_active: Column = Column(Boolean, default = True, server_default = 'true')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+# Using Praetorian specific features ----------------------
     @property
     def rolenames(self):
         try:
@@ -68,15 +27,11 @@ class User(Model):
 
     @classmethod
     def lookup(cls, username):
-        result = cls.query().where('username', username).first_or_fail()
-        if result:
-            return result
-        else:
-            return None
+        return cls.query.filter_by(username = username).one_or_none()
 
     @classmethod
     def identify(cls, id_):
-        return cls.find(id_)
+        return cls.query.get(id_)
 
     @property
     def identity(self):
@@ -85,7 +40,6 @@ class User(Model):
     def is_active(self):
         if not self.is_active:
             raise Exception("user has been disabled")
-
 
 # Set up some routes for the example ----------------------
 #

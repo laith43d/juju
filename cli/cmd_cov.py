@@ -1,9 +1,10 @@
 import subprocess
 
 import click
+from manage import cli
 
 
-@click.command()
+@click.command(name = 'make:cov')
 @click.argument('path', default='tests')
 def cli(path):
     """

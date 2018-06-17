@@ -2,13 +2,7 @@ import os
 
 import click
 
-
-@click.group()
-def cli():
-    """
-    Make a new model.
-    """
-    pass
+from manage import cli
 
 
 @cli.command(name = "make:model")
@@ -25,9 +19,10 @@ def make_model(model_name: str):
         with open(f'models/{model_name}.py', 'w') as f:
             f.write(f'''
 from config.settings import Model
+from facilities.databases.DBMixins import IDMixin
 
 
-class {model_name.capitalize()}(Model):
+class {model_name.capitalize()}(Model, IDMixin):
     pass
 ''')
 
