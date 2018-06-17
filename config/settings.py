@@ -1,7 +1,7 @@
 import redis
 from celery import Celery
 from flask import Flask
-from flask_cache import Cache
+# from flask_cache import Cache
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -15,9 +15,8 @@ from config.static_config import handler, current_config
 # APP Initialization --------------------------------------
 
 socketio = SocketIO()
-cache = Cache()
+# cache = Cache()
 mail = Mail()
-db = SQLAlchemy()
 guard = Praetorian()
 limit = Limiter(
     key_func = get_remote_address,
@@ -32,9 +31,13 @@ celery_app.autodiscover_tasks([__name__])
 redis_client = redis.StrictRedis.from_url(current_config.REDIS_DOMAIN, db = 0)
 auth_redis_client = redis.StrictRedis.from_url(current_config.AUTH_REDIS_URL)
 
-# Import Socket.IO events so that they are registered with Flask-SocketIO
+# ---------------------------------------------------------
+# Import Socket.IO events so that they
+# are registered with Flask-SocketIO
+# ---------------------------------------------------------
 from . import events
 
+db = SQLAlchemy()
 
 # we use AllFeaturesMixin to Inject all Mixins ------------
 class Model(db.Model, AllFeaturesMixin):
@@ -47,6 +50,8 @@ class Model(db.Model, AllFeaturesMixin):
 # ---------------------------------------------------------
 Model.set_session(db.session)
 
+# application factory -------------------------------------
+
 def create_app(main = True):
 
     app = Flask(__name__)
@@ -55,7 +60,7 @@ def create_app(main = True):
     db.init_app(app)
     limit.init_app(app)
     socketio.init_app(app)
-    cache.init_app(app, config = current_config.CACHE_CONFIG)
+    # cache.init_app(app, config = current_config.CACHE_CONFIG)
     mail.init_app(app)
 
     # Jwt -----------------------------------------------------
@@ -71,11 +76,6 @@ def create_app(main = True):
     # Logging -------------------------------------------------
 
     app.logger.addHandler(handler)
-
-    # logger shortcut, example: Log.info('your message'),
-    # that would automatically be logged in the log file
-    # specified above.
-    Log = app.logger
 
     return app
 
