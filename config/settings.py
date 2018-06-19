@@ -1,21 +1,17 @@
 import redis
 from celery import Celery
 from flask import Flask
-# from flask_cache import Cache
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_mail import Mail
 from flask_praetorian import Praetorian
-from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_mixins import AllFeaturesMixin
 from config.static_config import handler, current_config
 
 # APP Initialization --------------------------------------
 
-socketio = SocketIO()
-# cache = Cache()
 mail = Mail()
 guard = Praetorian()
 limit = Limiter(
@@ -59,8 +55,6 @@ def create_app(main = True):
     CORS(app, supports_credentials = True)
     db.init_app(app)
     limit.init_app(app)
-    socketio.init_app(app)
-    # cache.init_app(app, config = current_config.CACHE_CONFIG)
     mail.init_app(app)
 
     # Jwt -----------------------------------------------------
