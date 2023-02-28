@@ -26,7 +26,7 @@ class {model_name.capitalize()}(Model, IDMixin):
     pass
 ''')
 
-        with open(f'models/__init__.py', 'a+') as f:
+        with open('models/__init__.py', 'a+') as f:
             f.write(
                 f'from models.{model_name} import {model_name.capitalize()}\n')
 

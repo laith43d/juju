@@ -25,7 +25,7 @@ def celery(queues, logfile, concurrency, worker_max_tasks_per_child):
 
     if queues:
         config.update(queues=queues.split(','))
-        logger.info("worker is listening to queues: {}".format(queues))
+        logger.info(f"worker is listening to queues: {queues}")
     else:
         logger.info("worker is listening to ALL queues")
 

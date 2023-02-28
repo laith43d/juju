@@ -28,7 +28,7 @@ def {command_name}():
     pass
             ''')
 
-        with open(f'cli/__init__.py', 'a+') as f:
+        with open('cli/__init__.py', 'a+') as f:
             f.write(
                 f'from .cmd_{command_name} import *\n')
 

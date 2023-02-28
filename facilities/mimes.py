@@ -105,8 +105,4 @@ def get_mimes(extension=None):
 
 def get_extensions(mime_type=None):
     """Returns possible extensions for the given mime_type"""
-    exts = []
-    for ext in _mime_types:
-        if mime_type in _mime_types[ext]:
-            exts.append(ext)
-    return exts
+    return [ext for ext in _mime_types if mime_type in _mime_types[ext]]
