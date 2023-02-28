@@ -62,9 +62,7 @@ class UserMixin:
         Checks the inequality of two `UserMixin` objects using `get_id`.
         """
         equal = self.__eq__(other)
-        if equal is NotImplemented:
-            return NotImplemented
-        return not equal
+        return NotImplemented if equal is NotImplemented else not equal
 
 
 class AnonymousUserMixin:

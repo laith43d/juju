@@ -15,7 +15,7 @@ class User(Model, IDMixin):
     is_active: Column = Column(Boolean, default = True, server_default = 'true')
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return f'<User {self.username}>'
 
 # Using Praetorian specific features ----------------------
     @property

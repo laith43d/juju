@@ -24,16 +24,18 @@ LOG_LEVEL = logging.DEBUG
 
 
 
-class Config():
+
+
+class Config:
     # STATIC CONFIG--------------------------------------------
 
-    REDIS_DOMAIN = 'redis://{}:6379'.format(REDIS_HOST)
-    AUTH_REDIS_URL = 'redis://{}:6379/0'.format(REDIS_HOST)
+    REDIS_DOMAIN = f'redis://{REDIS_HOST}:6379'
+    AUTH_REDIS_URL = f'redis://{REDIS_HOST}:6379/0'
 
 
-    CELERY_BROKER_URL = '{}/{}'.format(REDIS_DOMAIN, 1)
+    CELERY_BROKER_URL = f'{REDIS_DOMAIN}/1'
 
-    CELERY_RESULT_BACKEND = '{}/{}'.format(REDIS_DOMAIN, 1)
+    CELERY_RESULT_BACKEND = f'{REDIS_DOMAIN}/1'
 
     CELERY_WORKER_CONFIG = {
         'broker': CELERY_BROKER_URL,
@@ -43,7 +45,7 @@ class Config():
     }
 
 
-    REDBEAT_REDIS_URL = '{}/{}'.format(REDIS_DOMAIN, 3)
+    REDBEAT_REDIS_URL = f'{REDIS_DOMAIN}/3'
     REDBEAT_KEY_PREFIX = 'redbeat'
     REDBEAT_LOCK_KEY = 'redbeat:lock'
     # REDBEAT_LOCK_TIMEOUT = 2
@@ -98,11 +100,11 @@ class Config():
     SOCKETIO_MESSAGE_QUEUE = 'redis://'
 
     CACHE_CONFIG = {
-        'CACHE_TYPE'      : 'redis',
+        'CACHE_TYPE': 'redis',
         'CACHE_KEY_PREFIX': 'fcache_',
         'CACHE_REDIS_HOST': 'localhost',
         'CACHE_REDIS_PORT': '6379',
-        'CACHE_REDIS_URL' : '{}/{}'.format(REDIS_DOMAIN, 2)
+        'CACHE_REDIS_URL': f'{REDIS_DOMAIN}/2',
     }
 
     IS_AUTH_ENABLED = True
@@ -165,6 +167,7 @@ class Config():
             'prefix'  : DB_PREFIX
         }
     }
+
 
 
 class ProductionConfig(Config):
